@@ -29,9 +29,7 @@
       <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me
     </label>
   </fieldset>
-  <div class="">
-    <input class="b ph3 pv2 input-reset ba b--primary primary bg-transparent grow pointer f6 dib" type="submit" value="Login">
-  </div>
+  <input class="b ph3 pv2 input-reset ba b--primary primary bg-transparent grow pointer f6 dib" type="submit" value="Login">
   @if (Route::has('password.request'))
     <div class="lh-copy mt3">
       <a href="{{ route('password.request') }}" class="f6 link dim black db silver">Forgot your password?</a>

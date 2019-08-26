@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recurring;
+use Illuminate\Support\Facades\Auth;
 
 class RecurringController extends Controller {
 
@@ -20,8 +21,8 @@ class RecurringController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $recurring = Recurring::all();
-    return view('recurring')->with($recurring);
+    $records = Recurring::all();
+    return view('recurring')->with('recurring', $records);
   }
 
   /**
@@ -48,11 +49,13 @@ class RecurringController extends Controller {
       'interval_days' => 'required',
     ]);
 
-    $recurring = new Recurring($data);
+    $recurring = new Recurring();
+    $recurring->user_id = Auth::id();
     $recurring->description = $data['description'];
     $recurring->category = $data['category'];
     $recurring->amount = $data['amount'];
     $recurring->datetime = $data['datetime'];
+    $recurring->interval_days = $data['interval_days'];
     $recurring->save();
 
     return redirect('/');

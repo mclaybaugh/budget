@@ -5,5 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Recurring extends Model {
-  //
+
+  /**
+   * The table associated with the model.
+   *
+   * @var string
+   */
+  protected $table = 'recurring';
+
 }

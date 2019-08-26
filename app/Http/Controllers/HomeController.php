@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Recurring;
 
 class HomeController extends Controller {
 
@@ -20,7 +21,24 @@ class HomeController extends Controller {
    *   Homepage.
    */
   public function index() {
+    // $cats = [
+    //   'income',
+    //   'utilities',
+    //   'loans',
+    //   'creditcards',
+    //   'variable',
+    // ];
+    // foreach ($cats as $cat) {
+    //   $recurring[$cat] = byCategory($cat);
+    // }
+    // return view('home')->with($recurring);
     return view('home');
+  }
+
+  private function byCategory($cat) {
+    return Recurring::where('user_id', Auth::id())
+      ->where('category', $cat)
+      ->orderBy('datetime');
   }
 
 }
