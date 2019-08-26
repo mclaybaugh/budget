@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PlannedTransaction extends Migration {
+/**
+ * Bills, income, and various other expenses used for budget template.
+ */
+class CreateRecurringTable extends Migration {
 
   /**
    * Run the migrations.
@@ -12,7 +15,7 @@ class PlannedTransaction extends Migration {
    * If interval_days is 0, then transaction is monthly.
    */
   public function up() {
-    Schema::create('plannedtransactions', function (Blueprint $table) {
+    Schema::create('recurring', function (Blueprint $table) {
       $table->bigIncrements('id');
       $table->timestamps();
       $table->foreign('user_id')
@@ -29,7 +32,7 @@ class PlannedTransaction extends Migration {
    * Reverse the migrations.
    */
   public function down() {
-    Schema::dropIfExists('plannedtransactions');
+    Schema::dropIfExists('recurring');
   }
 
 }

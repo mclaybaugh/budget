@@ -5,21 +5,20 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Transactions for monthly budgeting and cash-flow.
+ * Stores account balances used for calculating budget items.
  */
-class CreateTransactionsTable extends Migration {
+class CreateBalancesTable extends Migration {
 
   /**
    * Run the migrations.
    */
   public function up() {
-    Schema::create('transactions', function (Blueprint $table) {
+    Schema::create('balances', function (Blueprint $table) {
       $table->bigIncrements('id');
       $table->timestamps();
       $table->foreign('user_id')
         ->references('id')->on('users')
         ->onDelete('cascade');
-      $table->text('description');
       $table->decimal('amount', 8, 2);
       $table->dateTime('datetime');
     });
@@ -29,7 +28,7 @@ class CreateTransactionsTable extends Migration {
    * Reverse the migrations.
    */
   public function down() {
-    Schema::dropIfExists('transactions');
+    Schema::dropIfExists('balances');
   }
 
 }
