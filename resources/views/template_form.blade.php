@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="POST" action="/recurring" class="measure center pt4">
+<form method="POST" action="/template" class="measure center pt4">
   @csrf
   <!-- description text max 100 -->
   @component('components.input', [
@@ -18,6 +18,7 @@
     'options' => [
       'income' => 'Income',
       'utility' => 'Utility',
+      'insurance' => 'Insurance',
       'loan' => 'Loan',
       'creditcard' => 'Credit Card',
       'variable' => 'Variable',

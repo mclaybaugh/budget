@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Recurring;
+use App\Template;
 use Illuminate\Support\Facades\Auth;
 
-class RecurringController extends Controller {
+class TemplateController extends Controller {
 
   /**
    * Create a new controller instance.
@@ -21,8 +21,25 @@ class RecurringController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $records = Recurring::all();
-    return view('recurring')->with('recurring', $records);
+    $data['income'] = $this->byCategory('income');
+    $data['fixed'] = $this->byCategory(
+      'utility',
+      'insurance',
+      'loan',
+      'creditcard'
+    );
+    $data['variable'] = $this->byCategory('variable');
+
+    return view('template')->with('data', $data);
+  }
+
+  private function byCategory() {
+    $data = Template::where('user_id', Auth::id());
+    foreach (func_get_args() as $cat) {
+      $data = $data->where('category', $cat);
+    }
+    $data->orderBy('datetime');
+    return $data->get();
   }
 
   /**
@@ -31,7 +48,7 @@ class RecurringController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    return view('recurring_form');
+    return view('template_form');
   }
 
   /**
@@ -49,7 +66,7 @@ class RecurringController extends Controller {
       'interval_days' => 'required',
     ]);
 
-    $recurring = new Recurring();
+    $recurring = new Template();
     $recurring->user_id = Auth::id();
     $recurring->description = $data['description'];
     $recurring->category = $data['category'];
@@ -58,7 +75,7 @@ class RecurringController extends Controller {
     $recurring->interval_days = $data['interval_days'];
     $recurring->save();
 
-    return redirect('/');
+    return redirect('/template');
   }
 
   /**

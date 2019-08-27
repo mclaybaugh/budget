@@ -14,6 +14,6 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('recurring', 'RecurringController');
+Route::resource('template', 'TemplateController');
 
 Auth::routes();

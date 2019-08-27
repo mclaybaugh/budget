@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Recurring extends Model {
+class Template extends Model {
 
   /**
    * The table associated with the model.
    *
    * @var string
    */
-  protected $table = 'recurring';
+  protected $table = 'template';
 
 }
