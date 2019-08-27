@@ -1,7 +1,8 @@
 /* https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
 $primary: #20a689;
 .primary { color: $primary; }
-.b--primary { border-color: $primary}
+.b--primary { border-color: $primary; }
+.bg-primary { background-color: $primary; }
 .primary900 { color: #004d33; }
 .primary800 { color: #00694d; }
 .primary700 { color: #00795b; }

@@ -35,8 +35,14 @@ class TemplateController extends Controller {
 
   private function byCategory() {
     $data = Template::where('user_id', Auth::id());
-    foreach (func_get_args() as $cat) {
-      $data = $data->where('category', $cat);
+    $num = func_num_args();
+    $args = func_get_args();
+    for ($i = 0; $i < $num; $i++) {
+      if ($i == 0) {
+        $data = $data->where('category', $args[$i]);
+      } else {
+        $data = $data->orWhere('category', $args[$i]);
+      }
     }
     $data->orderBy('datetime');
     return $data->get();
