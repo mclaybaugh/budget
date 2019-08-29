@@ -4,19 +4,19 @@
 <div class="flex-l">
   @component('components.table_template', [
     'title' => 'Income',
-    'records' => $data['income'],
+    'rows' => $data['income'],
   ])
   @endcomponent
 
   @component('components.table_template', [
     'title' => 'Fixed Expenses',
-    'records' => $data['fixed'],
+    'rows' => $data['fixed'],
   ])
   @endcomponent
 
   @component('components.table_template', [
     'title' => 'Income',
-    'records' => $data['variable'],
+    'rows' => $data['variable'],
   ])
   @endcomponent
 </div>

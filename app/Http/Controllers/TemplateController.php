@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Template;
 use Illuminate\Support\Facades\Auth;
+use App\Template;
+use App\TransactionRow;
 
 class TemplateController extends Controller {
 
@@ -21,14 +22,45 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $data['income'] = $this->byCategory('income');
-    $data['fixed'] = $this->byCategory(
+    // Get data from mysql.
+    $query['income'] = $this->byCategory('income');
+    $query['fixed'] = $this->byCategory(
       'utility',
       'insurance',
       'loan',
       'creditcard'
     );
-    $data['variable'] = $this->byCategory('variable');
+    $query['variable'] = $this->byCategory('variable');
+
+    // Process data for view.
+    foreach ($query as $cat => $results) {
+      $data[$cat] = [];
+      foreach ($results as $record) {
+        $timestamp = strtotime($record->datetime);
+        $row = new TransactionRow(
+          $record->description,
+          $timestamp,
+          $record->amount,
+          '/template/' . $record->id . '/edit'
+        );
+        $data[$cat][] = $row;
+
+        $interval = $record->interval_days;
+        if ($interval > 0) {
+          $newDate = $timestamp + $interval * 24 * 3600;
+          while (date('m', $newDate) === date('m', $timestamp)) {
+            $newRow = new TransactionRow(
+              $record->description,
+              $newDate,
+              $record->amount,
+              $row->edit_link
+            );
+            $data[$cat][] = $newRow;
+            $newDate = $newDate + $interval * 24 * 3600;
+          }
+        }
+      }
+    }
 
     return view('template')->with('data', $data);
   }
