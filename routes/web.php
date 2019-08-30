@@ -13,4 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('template', 'TemplateController')->except(['show']);
+
 Auth::routes();

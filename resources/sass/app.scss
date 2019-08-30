@@ -1,18 +1,19 @@
 /* https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
-$primary: #20a689;
+$primary: #7ecbb8;
 .primary { color: $primary; }
-.b--primary { border-color: $primary}
+.b--primary { border-color: $primary; }
+.bg-primary { background-color: $primary; }
 .primary900 { color: #004d33; }
 .primary800 { color: #00694d; }
 .primary700 { color: #00795b; }
 .primary600 { color: #00896a; }
 .primary500 { color: #009676; }
-.primary400 { color: #20a689; } /* primary */
+.primary400 { color: #20a689; }
 .primary300 { color: #4ab69c; }
 .primary200 { color: #7ecbb8; }
 .primary100 { color: #b1dfd4; }
 .primary50 { color: #dff2ee; }
-$comp: #a6203d;
+$comp: #f38f9c;
 .comp { color: $comp; }
 .b--comp { border-color: $comp}
 .comp900 { color: #831538; }
@@ -26,48 +27,68 @@ $comp: #a6203d;
 .comp100 { color: #f9bac3; }
 .comp50 { color: #fde4e7; }
 /* analogous */
-.agreen { color: #20a646; }
-.agreen900 { color: #00631b; }
-.agreen800 { color: #00822f; }
-.agreen700 { color: #10943a; }
-.agreen600 { color: #20a646; }
-.agreen500 { color: #2ab54f; }
-.agreen400 { color: #51c06a; }
-.agreen300 { color: #73cc85; }
-.agreen200 { color: #9ddaa8; }
-.agreen100 { color: #c4e8ca; }
-.agreen50 { color: #e6f6e9; }
-.ablue { color: #2080a6; }
-.ablue900 { color: #146085; }
-.ablue800 { color: #2080a6; }
-.ablue700 { color: #2291b9; }
-.ablue600 { color: #2ea4cb; }
-.ablue500 { color: #37b2d8; }
-.ablue400 { color: #4cbddb; }
-.ablue300 { color: #65c9df; }
-.ablue200 { color: #8bd9e7; }
-.ablue100 { color: #b7e8ef; }
-.ablue50 { color: #e3f6f9; }
+.green { color: #20a646; }
+.green900 { color: #00631b; }
+.green800 { color: #00822f; }
+.green700 { color: #10943a; }
+.green600 { color: #20a646; }
+.green500 { color: #2ab54f; }
+.green400 { color: #51c06a; }
+.green300 { color: #73cc85; }
+.green200 { color: #9ddaa8; }
+.green100 { color: #c4e8ca; }
+.green50 { color: #e6f6e9; }
+.blue { color: #2080a6; }
+.blue900 { color: #146085; }
+.blue800 { color: #2080a6; }
+.blue700 { color: #2291b9; }
+.blue600 { color: #2ea4cb; }
+.blue500 { color: #37b2d8; }
+.blue400 { color: #4cbddb; }
+.blue300 { color: #65c9df; }
+.blue200 { color: #8bd9e7; }
+.blue100 { color: #b7e8ef; }
+.blue50 { color: #e3f6f9; }
 /* triadic */
-.anavy { color: #203da6; }
-.anavy900 { color: #002086; }
-.anavy800 { color: #15339a; }
-.anavy700 { color: #203da6; }
-.anavy600 { color: #2a47b2; }
-.anavy500 { color: #314fbc; }
-.anavy400 { color: #5369c6; }
-.anavy300 { color: #7384d0; }
-.anavy200 { color: #9ca7dd; }
-.anavy100 { color: #c3c9eb; }
-.anavy50 { color: #e7eaf7; }
-.apurple { color: #8920a6; }
-.apurple900 { color: #451088; }
-.apurple800 { color: #651796; }
-.apurple700 { color: #761b9e; }
-.apurple600 { color: #8920a6; }
-.apurple500 { color: #9722ac; }
-.apurple400 { color: #a644b8; }
-.apurple300 { color: #b665c5; }
-.apurple200 { color: #cb91d6; }
-.apurple100 { color: #dfbde6; }
-.apurple50 { color: #f2e4f4; }
+.navy { color: #203da6; }
+.navy900 { color: #002086; }
+.navy800 { color: #15339a; }
+.navy700 { color: #203da6; }
+.navy600 { color: #2a47b2; }
+.navy500 { color: #314fbc; }
+.navy400 { color: #5369c6; }
+.navy300 { color: #7384d0; }
+.navy200 { color: #9ca7dd; }
+.navy100 { color: #c3c9eb; }
+.navy50 { color: #e7eaf7; }
+.purple { color: #8920a6; }
+.purple900 { color: #451088; }
+.purple800 { color: #651796; }
+.purple700 { color: #761b9e; }
+.purple600 { color: #8920a6; }
+.purple500 { color: #9722ac; }
+.purple400 { color: #a644b8; }
+.purple300 { color: #b665c5; }
+.purple200 { color: #cb91d6; }
+.purple100 { color: #dfbde6; }
+.purple50 { color: #f2e4f4; }
+
+/* white overlays with transparency
+https://material.io/design/color/dark-theme.html#properties
+*/
+$near-black: #121212;
+.depth-0 { background-color: $near-black; }
+.depth-1 { background-color: rgba(255, 255, 255, 0.05); }
+.depth-2 { background-color: rgba(255, 255, 255, 0.07); }
+.depth-3 { background-color: rgba(255, 255, 255, 0.08); }
+.depth-4 { background-color: rgba(255, 255, 255, 0.09); }
+.depth-5 { background-color: rgba(255, 255, 255, 0.11); }
+.depth-6 { background-color: rgba(255, 255, 255, 0.12); }
+.depth-7 { background-color: rgba(255, 255, 255, 0.14); }
+.depth-8 { background-color: rgba(255, 255, 255, 0.15); }
+.depth-9 { background-color: rgba(255, 255, 255, 0.16); }
+
+/* text colors */
+.text-0 { color: #aaa; }
+.text-1 { color: #ccc; }
+.text-2 { color: #eee; }

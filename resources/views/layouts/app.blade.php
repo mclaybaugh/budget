@@ -19,27 +19,32 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
-<body class="bg-black">
+<body class="depth-0 text-0">
   <div id="app">
     <nav class="bb b--dark-gray db dt-l w-100 border-box pa3 ph5-l">
       <a class="db dtc-l v-mid primary link dim w-100 w-25-l tc tl-l mb2 mb0-l" href="/" title="Home">
         {{ config('app.name', 'Laravel') }}
+          @auth
+          <span class="f6 f5-l dib mr3 mr4-l">
+            - {{ Auth::user()->name }}
+          </span>
+          @endauth
       </a>
       <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
       @guest
-        <a class="link dim silver f6 f5-l dib mr3 mr4-l" href="{{ route('login') }}">
+        <a class="link dim f6 f5-l dib mr3 mr4-l" href="{{ route('login') }}">
           Login
         </a>
         @if (Route::has('register'))
-          <a class="link dim silver f6 f5-l dib mr3 mr4-l" href="{{ route('register') }}">
+          <a class="link dim f6 f5-l dib mr3 mr4-l" href="{{ route('register') }}">
             Register
           </a>
         @endif
       @else
-        <span class="light-gray f6 f5-l dib mr3 mr4-l">
-            {{ Auth::user()->name }}
-        </span>
-        <a class="link dim light-gray f6 f5-l dib mr3 mr4-l" href="{{ route('logout') }}"
+        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('template.index') }}">
+          Template
+        </a>
+        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('logout') }}"
           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             Logout
         </a>
@@ -51,7 +56,7 @@
       </div>
     </nav>
     <main class="py-4">
-        @yield('content')
+      @yield('content')
     </main>
   </div>
 </body>
