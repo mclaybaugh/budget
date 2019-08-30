@@ -20,7 +20,8 @@
   ])
   @endcomponent
 </div>
-
-<a class="link db center tc mw5 b ph3 pv2 ba b--primary primary bg-transparent pointer f6"
-href="/template/create">Add Template Transaction</a>
+<div class="center mw5 ba b--primary primary bg-transparent f6">
+  <a class="link db primary tc b ph3 pv2"
+  href="/template/create">Add Template Transaction</a>
+</div>
 @endsection

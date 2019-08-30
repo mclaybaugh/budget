@@ -1,15 +1,15 @@
 /* https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
 
 .primary {
-  color: #20a689;
+  color: #7ecbb8;
 }
 
 .b--primary {
-  border-color: #20a689;
+  border-color: #7ecbb8;
 }
 
 .bg-primary {
-  background-color: #20a689;
+  background-color: #7ecbb8;
 }
 
 .primary900 {
@@ -35,8 +35,6 @@
 .primary400 {
   color: #20a689;
 }
-
-/* primary */
 
 .primary300 {
   color: #4ab69c;
@@ -104,181 +102,235 @@
 
 /* analogous */
 
-.agreen {
+.green {
   color: #20a646;
 }
 
-.agreen900 {
+.green900 {
   color: #00631b;
 }
 
-.agreen800 {
+.green800 {
   color: #00822f;
 }
 
-.agreen700 {
+.green700 {
   color: #10943a;
 }
 
-.agreen600 {
+.green600 {
   color: #20a646;
 }
 
-.agreen500 {
+.green500 {
   color: #2ab54f;
 }
 
-.agreen400 {
+.green400 {
   color: #51c06a;
 }
 
-.agreen300 {
+.green300 {
   color: #73cc85;
 }
 
-.agreen200 {
+.green200 {
   color: #9ddaa8;
 }
 
-.agreen100 {
+.green100 {
   color: #c4e8ca;
 }
 
-.agreen50 {
+.green50 {
   color: #e6f6e9;
 }
 
-.ablue {
+.blue {
   color: #2080a6;
 }
 
-.ablue900 {
+.blue900 {
   color: #146085;
 }
 
-.ablue800 {
+.blue800 {
   color: #2080a6;
 }
 
-.ablue700 {
+.blue700 {
   color: #2291b9;
 }
 
-.ablue600 {
+.blue600 {
   color: #2ea4cb;
 }
 
-.ablue500 {
+.blue500 {
   color: #37b2d8;
 }
 
-.ablue400 {
+.blue400 {
   color: #4cbddb;
 }
 
-.ablue300 {
+.blue300 {
   color: #65c9df;
 }
 
-.ablue200 {
+.blue200 {
   color: #8bd9e7;
 }
 
-.ablue100 {
+.blue100 {
   color: #b7e8ef;
 }
 
-.ablue50 {
+.blue50 {
   color: #e3f6f9;
 }
 
 /* triadic */
 
-.anavy {
+.navy {
   color: #203da6;
 }
 
-.anavy900 {
+.navy900 {
   color: #002086;
 }
 
-.anavy800 {
+.navy800 {
   color: #15339a;
 }
 
-.anavy700 {
+.navy700 {
   color: #203da6;
 }
 
-.anavy600 {
+.navy600 {
   color: #2a47b2;
 }
 
-.anavy500 {
+.navy500 {
   color: #314fbc;
 }
 
-.anavy400 {
+.navy400 {
   color: #5369c6;
 }
 
-.anavy300 {
+.navy300 {
   color: #7384d0;
 }
 
-.anavy200 {
+.navy200 {
   color: #9ca7dd;
 }
 
-.anavy100 {
+.navy100 {
   color: #c3c9eb;
 }
 
-.anavy50 {
+.navy50 {
   color: #e7eaf7;
 }
 
-.apurple {
+.purple {
   color: #8920a6;
 }
 
-.apurple900 {
+.purple900 {
   color: #451088;
 }
 
-.apurple800 {
+.purple800 {
   color: #651796;
 }
 
-.apurple700 {
+.purple700 {
   color: #761b9e;
 }
 
-.apurple600 {
+.purple600 {
   color: #8920a6;
 }
 
-.apurple500 {
+.purple500 {
   color: #9722ac;
 }
 
-.apurple400 {
+.purple400 {
   color: #a644b8;
 }
 
-.apurple300 {
+.purple300 {
   color: #b665c5;
 }
 
-.apurple200 {
+.purple200 {
   color: #cb91d6;
 }
 
-.apurple100 {
+.purple100 {
   color: #dfbde6;
 }
 
-.apurple50 {
+.purple50 {
   color: #f2e4f4;
+}
+
+/* white overlays with transparency
+https://material.io/design/color/dark-theme.html#properties
+*/
+
+.depth-0 {
+  background-color: #121212;
+}
+
+.depth-1 {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.depth-2 {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.depth-3 {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.depth-4 {
+  background-color: rgba(255, 255, 255, 0.09);
+}
+
+.depth-5 {
+  background-color: rgba(255, 255, 255, 0.11);
+}
+
+.depth-6 {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.depth-7 {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.depth-8 {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.depth-9 {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* text colors */
+
+.text-0 {
+  color: #aaa;
+}
+
+.text-1 {
+  color: #ddd;
 }
 
