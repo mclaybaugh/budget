@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex-l">
+<div class="flex-l justify-center">
   @component('components.table_template', [
     'title' => 'Income',
     'rows' => $data['income'],
