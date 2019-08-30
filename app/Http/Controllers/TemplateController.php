@@ -41,7 +41,7 @@ class TemplateController extends Controller {
           $record->description,
           $timestamp,
           $record->amount,
-          '/template/' . $record->id . '/edit'
+          route('template.edit', $record->id)
         );
         $data[$cat][] = $row;
 
@@ -86,7 +86,7 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    return view('template_form');
+    return view('template_create');
   }
 
   /**
@@ -104,26 +104,16 @@ class TemplateController extends Controller {
       'interval_days' => 'required',
     ]);
 
-    $recurring = new Template();
-    $recurring->user_id = Auth::id();
-    $recurring->description = $data['description'];
-    $recurring->category = $data['category'];
-    $recurring->amount = $data['amount'];
-    $recurring->datetime = $data['datetime'];
-    $recurring->interval_days = $data['interval_days'];
-    $recurring->save();
+    $template = new Template();
+    $template->user_id = Auth::id();
+    $template->description = $data['description'];
+    $template->category = $data['category'];
+    $template->amount = $data['amount'];
+    $template->datetime = $data['datetime'];
+    $template->interval_days = $data['interval_days'];
+    $template->save();
 
-    return redirect('/template');
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id) {
-      //
+    return redirect(route('template.index'));
   }
 
   /**
@@ -133,7 +123,8 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function edit($id) {
-      //
+    $item = Template::find($id);
+    return view('template_edit')->with('item', $item);
   }
 
   /**
@@ -144,7 +135,23 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function update(Request $request, $id) {
-      //
+    $data = $request->validate([
+      'description' => 'required|max:100',
+      'category' => 'required',
+      'amount' => 'required',
+      'datetime' => 'required',
+      'interval_days' => 'required',
+    ]);
+
+    $template = Template::find($id);
+    $template->description = $data['description'];
+    $template->category = $data['category'];
+    $template->amount = $data['amount'];
+    $template->datetime = $data['datetime'];
+    $template->interval_days = $data['interval_days'];
+    $template->save();
+
+    return redirect(route('template.index'));
   }
 
   /**
@@ -154,7 +161,10 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function destroy($id) {
-      //
+    $template = Template::find($id);
+    $template->delete();
+
+    return redirect(route('template.index'));
   }
 
 }

@@ -11,6 +11,7 @@
   - maxlength (text)
   - max (number)
   - placeholder
+  - value
 --}}
 
 <div class="mt3">
@@ -27,6 +28,9 @@
   @endisset
   @isset($placeholder)
     placeholder="{{ $placeholder }}"
+  @endisset
+  @isset($value)
+    value="{{ $value }}"
   @endisset
   />
   @error('{{ $short }}')

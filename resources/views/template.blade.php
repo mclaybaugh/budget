@@ -22,6 +22,6 @@
 </div>
 <div class="center mw5 ba b--primary primary bg-transparent f6">
   <a class="link db primary tc b ph3 pv2"
-  href="/template/create">Add Template Transaction</a>
+  href="{{ route('template.create') }}">Add Template Transaction</a>
 </div>
 @endsection

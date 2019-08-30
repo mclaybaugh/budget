@@ -53,11 +53,11 @@
 }
 
 .comp {
-  color: #a6203d;
+  color: #f38f9c;
 }
 
 .b--comp {
-  border-color: #a6203d;
+  border-color: #f38f9c;
 }
 
 .comp900 {
@@ -331,6 +331,10 @@ https://material.io/design/color/dark-theme.html#properties
 }
 
 .text-1 {
-  color: #ddd;
+  color: #ccc;
+}
+
+.text-2 {
+  color: #eee;
 }
 

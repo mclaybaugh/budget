@@ -4,6 +4,7 @@
   - short
   - display
   - options [ value => display ]
+  - value
 --}}
 
 <div class="mt3">
@@ -12,8 +13,15 @@
   <select class=""
   name="{{ $short }}" id="{{ $short }}">
     <option>Select ...</option>
-      @foreach ($options as $value => $display)
-        <option value="{{ $value }}">{{ $display }}</option>
+      @foreach ($options as $val => $display)
+        <option value="{{ $val }}"
+        @isset($value)
+          @if ($val == $value)
+          selected="selected"
+          @endif
+        @endisset>
+          {{ $display }}
+        </option>
       @endforeach
   </select>
 </div>

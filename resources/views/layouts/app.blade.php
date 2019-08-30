@@ -41,7 +41,7 @@
           </a>
         @endif
       @else
-        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="/template">
+        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('template.index') }}">
           Template
         </a>
         <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('logout') }}"
