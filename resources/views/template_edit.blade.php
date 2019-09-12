@@ -18,15 +18,8 @@
   @component('components.select', [
     'short' => 'category',
     'display' => 'Category',
-    'options' => [
-      'income' => 'Income',
-      'utility' => 'Utility',
-      'insurance' => 'Insurance',
-      'loan' => 'Loan',
-      'creditcard' => 'Credit Card',
-      'variable' => 'Variable',
-    ],
-    'value' => $item->category,
+    'options' => $categories,
+    'value' => $item->category_id,
   ])
   @endcomponent
   <!-- amount numeric 8:2 -->

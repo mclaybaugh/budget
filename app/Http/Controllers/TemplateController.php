@@ -71,12 +71,8 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    $cats = Category::all();
-    $catOptions = [];
-    foreach ($cats as $cat) {
-      $catOptions[$cat->id] = $cat->name;
-    }
-    return view('template_create')->with('categories', $catOptions);
+    $cats = $this->categoryArray();
+    return view('template_create')->with('categories', $cats);
   }
 
   /**
@@ -114,7 +110,19 @@ class TemplateController extends Controller {
    */
   public function edit($id) {
     $item = Template::find($id);
-    return view('template_edit')->with('item', $item);
+    $cats = $this->categoryArray();
+    return view('template_edit')
+      ->with('item', $item)
+      ->with('categories', $cats);
+  }
+
+  private function categoryArray() {
+    $records = Category::all();
+    $cats = [];
+    foreach ($records as $cat) {
+      $cats[$cat->id] = $cat->name;
+    }
+    return $cats;
   }
 
   /**
