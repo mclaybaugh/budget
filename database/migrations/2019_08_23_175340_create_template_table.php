@@ -10,8 +10,6 @@ use Illuminate\Database\Migrations\Migration;
 class CreateTemplateTable extends Migration {
 
   /**
-   * Run the migrations.
-   *
    * If interval_days is 0, then transaction is monthly.
    */
   public function up() {
@@ -32,14 +30,13 @@ class CreateTemplateTable extends Migration {
       /* If interval is 0, then transaction is same day every month */
       $table->integer('interval_days');
 
-      /* Categories are creditcard, loan, utility, variable, income */
-      $table->string('category');
+      $table->unsignedBigInteger('category_id');
+      $table->foreign('category_id')
+        ->references('id')->on('categories')
+        ->onDelete('restrict');
     });
   }
 
-  /**
-   * Reverse the migrations.
-   */
   public function down() {
     Schema::dropIfExists('template');
   }

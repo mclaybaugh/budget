@@ -9,9 +9,6 @@ use Illuminate\Database\Migrations\Migration;
  */
 class CreateTransactionsTable extends Migration {
 
-  /**
-   * Run the migrations.
-   */
   public function up() {
     Schema::create('transactions', function (Blueprint $table) {
       $table->bigIncrements('id');
@@ -26,12 +23,14 @@ class CreateTransactionsTable extends Migration {
       $table->text('description');
       $table->decimal('amount', 8, 2);
       $table->dateTime('datetime');
+
+      $table->unsignedBigInteger('category_id');
+      $table->foreign('category_id')
+        ->references('id')->on('categories')
+        ->onDelete('restrict');
     });
   }
 
-  /**
-   * Reverse the migrations.
-   */
   public function down() {
     Schema::dropIfExists('transactions');
   }

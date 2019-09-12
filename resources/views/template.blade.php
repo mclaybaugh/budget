@@ -2,23 +2,15 @@
 
 @section('content')
 <div class="flex-l justify-center">
-  @component('components.table_template', [
-    'title' => 'Income',
-    'rows' => $data['income'],
-  ])
-  @endcomponent
 
-  @component('components.table_template', [
-    'title' => 'Fixed Expenses',
-    'rows' => $data['fixed'],
-  ])
-  @endcomponent
+  @foreach ($data as $cat => $records)
+    @component('components.table_template', [
+      'title' => $cat,
+      'rows' => $records,
+    ])
+    @endcomponent
+  @endforeach
 
-  @component('components.table_template', [
-    'title' => 'Income',
-    'rows' => $data['variable'],
-  ])
-  @endcomponent
 </div>
 <div class="center mw5 ba b--primary primary bg-transparent f6">
   <a class="link db primary tc b ph3 pv2"

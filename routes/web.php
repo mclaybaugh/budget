@@ -15,6 +15,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('template', 'TemplateController')->except(['show']);
-Route::resource('template', 'TransactionController')->except(['show']);
+Route::resource('transaction', 'TransactionController')->except(['show']);
 
 Auth::routes();

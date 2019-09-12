@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Template;
 use App\TransactionRow;
+use App\Category;
 
 class TemplateController extends Controller {
 
@@ -23,17 +24,16 @@ class TemplateController extends Controller {
    */
   public function index() {
     // Get data from mysql.
-    $query['income'] = $this->byCategory('income');
-    $query['fixed'] = $this->byCategory(
-      'utility',
-      'insurance',
-      'loan',
-      'creditcard'
-    );
-    $query['variable'] = $this->byCategory('variable');
+    $queries = [];
+    $cats = Category::all();
+    foreach ($cats as $cat) {
+      $queries[$cat->name] = Template::where('user_id', Auth::id())
+        ->where('category_id', $cat->id)
+        ->orderBy('datetime')->get();
+    }
 
     // Process data for view.
-    foreach ($query as $cat => $results) {
+    foreach ($queries as $cat => $results) {
       $data[$cat] = [];
       foreach ($results as $record) {
         $timestamp = strtotime($record->datetime);
@@ -65,28 +65,18 @@ class TemplateController extends Controller {
     return view('template')->with('data', $data);
   }
 
-  private function byCategory() {
-    $data = Template::where('user_id', Auth::id());
-    $num = func_num_args();
-    $args = func_get_args();
-    for ($i = 0; $i < $num; $i++) {
-      if ($i == 0) {
-        $data = $data->where('category', $args[$i]);
-      } else {
-        $data = $data->orWhere('category', $args[$i]);
-      }
-    }
-    $data->orderBy('datetime');
-    return $data->get();
-  }
-
   /**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    return view('template_create');
+    $cats = Category::all();
+    $catOptions = [];
+    foreach ($cats as $cat) {
+      $catOptions[$cat->id] = $cat->name;
+    }
+    return view('template_create')->with('categories', $catOptions);
   }
 
   /**
@@ -98,7 +88,7 @@ class TemplateController extends Controller {
   public function store(Request $request) {
     $data = $request->validate([
       'description' => 'required|max:100',
-      'category' => 'required',
+      'category_id' => 'required',
       'amount' => 'required',
       'datetime' => 'required',
       'interval_days' => 'required',
@@ -107,10 +97,10 @@ class TemplateController extends Controller {
     $template = new Template();
     $template->user_id = Auth::id();
     $template->description = $data['description'];
-    $template->category = $data['category'];
     $template->amount = $data['amount'];
     $template->datetime = $data['datetime'];
     $template->interval_days = $data['interval_days'];
+    $template->category_id = $data['category_id'];
     $template->save();
 
     return redirect(route('template.index'));

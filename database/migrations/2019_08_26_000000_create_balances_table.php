@@ -9,9 +9,6 @@ use Illuminate\Database\Migrations\Migration;
  */
 class CreateBalancesTable extends Migration {
 
-  /**
-   * Run the migrations.
-   */
   public function up() {
     Schema::create('balances', function (Blueprint $table) {
       $table->bigIncrements('id');
@@ -28,9 +25,6 @@ class CreateBalancesTable extends Migration {
     });
   }
 
-  /**
-   * Reverse the migrations.
-   */
   public function down() {
     Schema::dropIfExists('balances');
   }
