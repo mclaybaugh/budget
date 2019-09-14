@@ -16,7 +16,7 @@ class TransactionRow {
     string $link) {
 
     $this->description = $description;
-    $this->date = date('m-d', $timestamp);
+    $this->date = date('n-d', $timestamp);
     $this->amount = '$' . number_format($amount);
     $this->edit_link = $link;
   }

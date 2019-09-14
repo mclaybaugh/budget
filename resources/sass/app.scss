@@ -92,3 +92,6 @@ $near-black: #121212;
 .text-0 { color: #aaa; }
 .text-1 { color: #ccc; }
 .text-2 { color: #eee; }
+
+
+.clip { position: fixed !important; _position: absolute !important; clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */ clip: rect( 1px, 1px, 1px, 1px ); }
