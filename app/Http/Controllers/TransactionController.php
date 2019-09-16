@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transaction;
+use App\Template;
 
 class TransactionController extends Controller {
 
@@ -39,7 +40,14 @@ class TransactionController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request) {
-    //
+    $templates = Template::all();
+    foreach ($templates as $template) {
+      // Save transaction.
+    }
+  }
+
+  static function dateInMonth($time) {
+    return date('Y-m-') . date('d H:i:s', $time);
   }
 
   /**

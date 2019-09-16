@@ -35,14 +35,6 @@
     'placeholder' => 'YYYY-MM-DD hh:mm:ss',
   ])
   @endcomponent
-  <!-- interval_days number max 366  min 0 -->
-  @component('components.input', [
-    'short' => 'interval_days',
-    'display' => 'Interval (days)',
-    'type' => 'number',
-    'max' => '366',
-  ])
-  @endcomponent
 
   @component('components.submit', [
     'display' => 'Submit',

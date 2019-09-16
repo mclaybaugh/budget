@@ -44,21 +44,6 @@ class TemplateController extends Controller {
           route('template.edit', $record->id)
         );
         $data[$cat][] = $row;
-
-        $interval = $record->interval_days;
-        if ($interval > 0) {
-          $newDate = $timestamp + $interval * 24 * 3600;
-          while (date('m', $newDate) === date('m', $timestamp)) {
-            $newRow = new TransactionRow(
-              $record->description,
-              $newDate,
-              $record->amount,
-              $row->edit_link
-            );
-            $data[$cat][] = $newRow;
-            $newDate = $newDate + $interval * 24 * 3600;
-          }
-        }
       }
     }
 
@@ -87,7 +72,6 @@ class TemplateController extends Controller {
       'category_id' => 'required',
       'amount' => 'required',
       'datetime' => 'required',
-      'interval_days' => 'required',
     ]);
 
     $template = new Template();
@@ -95,7 +79,6 @@ class TemplateController extends Controller {
     $template->description = $data['description'];
     $template->amount = $data['amount'];
     $template->datetime = $data['datetime'];
-    $template->interval_days = $data['interval_days'];
     $template->category_id = $data['category_id'];
     $template->save();
 
@@ -135,18 +118,16 @@ class TemplateController extends Controller {
   public function update(Request $request, $id) {
     $data = $request->validate([
       'description' => 'required|max:100',
-      'category' => 'required',
+      'category_id' => 'required',
       'amount' => 'required',
       'datetime' => 'required',
-      'interval_days' => 'required',
     ]);
 
     $template = Template::find($id);
     $template->description = $data['description'];
-    $template->category = $data['category'];
+    $template->category_id = $data['category_id'];
     $template->amount = $data['amount'];
     $template->datetime = $data['datetime'];
-    $template->interval_days = $data['interval_days'];
     $template->save();
 
     return redirect(route('template.index'));

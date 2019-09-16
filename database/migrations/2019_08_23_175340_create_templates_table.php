@@ -7,13 +7,10 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * Bills, income, and various other expenses used for budget template.
  */
-class CreateTemplateTable extends Migration {
+class CreateTemplatesTable extends Migration {
 
-  /**
-   * If interval_days is 0, then transaction is monthly.
-   */
   public function up() {
-    Schema::create('template', function (Blueprint $table) {
+    Schema::create('templates', function (Blueprint $table) {
       $table->bigIncrements('id');
       $table->timestamps();
 
@@ -23,22 +20,19 @@ class CreateTemplateTable extends Migration {
         ->references('id')->on('users')
         ->onDelete('cascade');
 
-      $table->char('description', 100);
-      $table->decimal('amount', 8, 2);
-      $table->dateTime('datetime');
-
-      /* If interval is 0, then transaction is same day every month */
-      $table->integer('interval_days');
-
       $table->unsignedBigInteger('category_id');
       $table->foreign('category_id')
         ->references('id')->on('categories')
         ->onDelete('restrict');
+
+      $table->char('description', 100);
+      $table->decimal('amount', 8, 2);
+      $table->dateTime('datetime');
     });
   }
 
   public function down() {
-    Schema::dropIfExists('template');
+    Schema::dropIfExists('templates');
   }
 
 }
