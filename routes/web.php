@@ -17,4 +17,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('template', 'TemplateController')->except(['show']);
 Route::resource('transaction', 'TransactionController')->except(['show']);
 
+// Generate transactions for a time period.
+Route::get('/template/generate', 'TemplateController@generate');
+Route::post('/template/run', 'TemplateController@run');
+
 Auth::routes();

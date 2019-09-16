@@ -40,14 +40,51 @@ class TransactionController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request) {
+    $data = $request->validate([
+      'description' => 'required|max:100',
+      'category_id' => 'required',
+      'amount' => 'required',
+      'datetime' => 'required',
+    ]);
+
+    $transaction = new Transaction();
+    $transaction->user_id = Auth::id();
+    $transaction->description = $data['description'];
+    $transaction->amount = $data['amount'];
+    $transaction->datetime = $data['datetime'];
+    $transaction->category_id = $data['category_id'];
+    $transaction->save();
+
+    return redirect(route('transaction.index'));
+  }
+
+  public function generate() {
+    return view('transaction_generate');
+  }
+
+  public function run(Request $request) {
+    $data = $request->validate([
+      'datetime' => 'required',
+    ]);
+    $timestampMonth = strtotime($data('datetime'));
+
     $templates = Template::all();
     foreach ($templates as $template) {
-      // Save transaction.
+      $transaction = new Transaction();
+      $transaction->user_id = Auth::id();
+      $transaction->description = $template->description;
+      $transaction->amount = $template->amount;
+      $transaction->datetime = self::dateInMonth(
+        $timestampMonth,
+        strtotime($template->datetime)
+      );
+      $transaction->category_id = $template->category_id;
+      $transaction->save();
     }
   }
 
-  static function dateInMonth($time) {
-    return date('Y-m-') . date('d H:i:s', $time);
+  static function dateInMonth($timestampMonth, $timestampDay) {
+    return date('Y-m-', $timestampMonth) . date('d H:i:s', $timestampDay);
   }
 
   /**
@@ -69,7 +106,21 @@ class TransactionController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function update(Request $request, $id) {
-    //
+    $data = $request->validate([
+      'description' => 'required|max:100',
+      'category_id' => 'required',
+      'amount' => 'required',
+      'datetime' => 'required',
+    ]);
+
+    $transaction = Transaction::find($id);
+    $transaction->description = $data['description'];
+    $transaction->amount = $data['amount'];
+    $transaction->datetime = $data['datetime'];
+    $transaction->category_id = $data['category_id'];
+    $transaction->save();
+
+    return redirect(route('transaction.index'));
   }
 
   /**
