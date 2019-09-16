@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('pageTitle')
+Template Edit |
+@endsection
 @section('content')
 <div class="measure center pt4">
   <form method="POST" action="{{ route('template.update', $item->id) }}">
