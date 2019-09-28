@@ -71,18 +71,26 @@ class TemplateController extends Controller {
       'description' => 'required|max:100',
       'category_id' => 'required',
       'amount' => 'required',
-      'datetime' => 'required',
+      'date' => 'required',
+      'time' => 'required',
     ]);
 
     $template = new Template();
     $template->user_id = Auth::id();
     $template->description = $data['description'];
     $template->amount = $data['amount'];
-    $template->datetime = $data['datetime'];
+    $template->datetime = self::formatDateTime($data['date'], $data['time']);
     $template->category_id = $data['category_id'];
     $template->save();
 
     return redirect(route('template.index'));
+  }
+
+  /**
+   * Formats date [yyyy-mm-dd] and time [hh:mm] as [yyyy-mm-dd hh:mm:ss].
+   */
+  static private function formatDateTime($date, $time) {
+    return $date . ' ' . $time . ':00';
   }
 
   /**
@@ -93,6 +101,9 @@ class TemplateController extends Controller {
    */
   public function edit($id) {
     $item = Template::find($id);
+    $datetime = strtotime($item->datetime);
+    $item->date = date('Y-m-d', $datetime);
+    $item->time = date('H:i', $datetime);
     $cats = $this->categoryArray();
     return view('template_edit')
       ->with('item', $item)
@@ -120,14 +131,15 @@ class TemplateController extends Controller {
       'description' => 'required|max:100',
       'category_id' => 'required',
       'amount' => 'required',
-      'datetime' => 'required',
+      'date' => 'required',
+      'time' => 'required',
     ]);
 
     $template = Template::find($id);
     $template->description = $data['description'];
     $template->category_id = $data['category_id'];
     $template->amount = $data['amount'];
-    $template->datetime = $data['datetime'];
+    $template->datetime = self::formatDateTime($data['date'], $data['time']);
     $template->save();
 
     return redirect(route('template.index'));

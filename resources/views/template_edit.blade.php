@@ -33,14 +33,20 @@ Template Edit |
       'value' => $item->amount,
     ])
     @endcomponent
-    <!-- datetime text "YYYY-MM-DD hh:mm:ss" max 19 -->
+
     @component('components.input', [
-      'short' => 'datetime',
-      'display' => 'Date and Time',
-      'type' => 'text',
-      'maxlength' => '19',
-      'placeholder' => 'YYYY-MM-DD hh:mm:ss',
-      'value' => $item->datetime,
+      'short' => 'date',
+      'display' => 'Date',
+      'type' => 'date',
+      'value' => $item->date,
+    ])
+    @endcomponent
+
+    @component('components.input', [
+      'short' => 'time',
+      'display' => 'Time',
+      'type' => 'time',
+      'value' => $item->time,
     ])
     @endcomponent
 
