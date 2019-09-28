@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Template;
-use App\TransactionRow;
 use App\Category;
 
 class TemplateController extends Controller {
@@ -37,7 +36,7 @@ class TemplateController extends Controller {
       $data[$cat] = [];
       foreach ($results as $record) {
         $timestamp = strtotime($record->datetime);
-        $row = new TransactionRow(
+        $row = self::templateRow(
           $record->description,
           $timestamp,
           $record->amount,
@@ -48,6 +47,15 @@ class TemplateController extends Controller {
     }
 
     return view('template')->with('data', $data);
+  }
+
+  private static function templateRow($desc, $timestamp, $amount, $link) {
+    return [
+      'description' => $desc,
+      'date' => date('j', $timestamp),
+      'amount' => '$' . number_format($amount),
+      'edit_link' => $link,
+    ];
   }
 
   /**
@@ -89,7 +97,7 @@ class TemplateController extends Controller {
   /**
    * Formats date [yyyy-mm-dd] and time [hh:mm] as [yyyy-mm-dd hh:mm:ss].
    */
-  static private function formatDateTime($date, $time) {
+  private static function formatDateTime($date, $time) {
     return $date . ' ' . $time . ':00';
   }
 

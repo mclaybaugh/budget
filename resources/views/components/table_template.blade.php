@@ -23,10 +23,10 @@
       @foreach($rows as $row)
         <tr>
           <td class="pa3">
-            <a class="link text-1 dim" href="{{ $row->edit_link }}">{{ $row->description }}</a>
+            <a class="link text-1 dim" href="{{ $row['edit_link'] }}">{{ $row['description'] }}</a>
           </td>
-          <td class="pa3">{{ $row->date }}</td>
-          <td class="text-1 pa3 tr">{{ $row->amount }}</td>
+          <td class="pa3">{{ $row['date'] }}</td>
+          <td class="text-1 pa3 tr">{{ $row['amount'] }}</td>
         </tr>
       @endforeach
     </tbody>
