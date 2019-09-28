@@ -59,14 +59,35 @@ class TransactionController extends Controller {
   }
 
   public function generate() {
-    return view('transaction_generate');
+    $year = date('Y');
+    $nextYear = $year + 1;
+    $years = [
+      $year => $year,
+      $nextYear => $nextYear,
+    ];
+    $months = [
+      '01' => 'January',
+      '02' => 'February',
+      '03' => 'March',
+      '04' => 'April',
+      '05' => 'May',
+      '06' => 'June',
+      '07' => 'July',
+      '08' => 'August',
+      '09' => 'September',
+      '10' => 'October',
+      '11' => 'November',
+      '12' => 'December',
+    ];
+    return view('transaction_generate')->with('years', $years);
   }
 
   public function run(Request $request) {
     $data = $request->validate([
-      'datetime' => 'required',
+      'year' => 'required',
+      'month' => 'required',
     ]);
-    $timestampMonth = strtotime($data('datetime'));
+    $yearMonth = $data['year'] . '-' . $data['month'];
 
     $templates = Template::all();
     foreach ($templates as $template) {
@@ -74,17 +95,10 @@ class TransactionController extends Controller {
       $transaction->user_id = Auth::id();
       $transaction->description = $template->description;
       $transaction->amount = $template->amount;
-      $transaction->datetime = self::dateInMonth(
-        $timestampMonth,
-        strtotime($template->datetime)
-      );
+      $transaction->datetime = $yearMonth . date('-d H:i:s', strtotime($template->datetime));
       $transaction->category_id = $template->category_id;
       $transaction->save();
     }
-  }
-
-  static function dateInMonth($timestampMonth, $timestampDay) {
-    return date('Y-m-', $timestampMonth) . date('d H:i:s', $timestampDay);
   }
 
   /**

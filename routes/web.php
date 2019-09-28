@@ -18,7 +18,7 @@ Route::resource('template', 'TemplateController')->except(['show']);
 Route::resource('transaction', 'TransactionController')->except(['show']);
 
 // Generate transactions for a time period.
-Route::get('/template/generate', 'TemplateController@generate');
-Route::post('/template/run', 'TemplateController@run');
+Route::get('/transaction/generate', 'TemplateController@generate');
+Route::post('/transaction/run', 'TemplateController@run');
 
 Auth::routes();
