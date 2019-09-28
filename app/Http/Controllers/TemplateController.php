@@ -36,26 +36,17 @@ class TemplateController extends Controller {
       $data[$cat] = [];
       foreach ($results as $record) {
         $timestamp = strtotime($record->datetime);
-        $row = self::templateRow(
-          $record->description,
-          $timestamp,
-          $record->amount,
-          route('template.edit', $record->id)
-        );
+        $row = [
+          'description' => $record->description,
+          'date' => date('j', $timestamp),
+          'amount' => '$' . number_format($record->amount),
+          'edit_link' => route('template.edit', $record->id),
+        ];
         $data[$cat][] = $row;
       }
     }
 
     return view('template')->with('data', $data);
-  }
-
-  private static function templateRow($desc, $timestamp, $amount, $link) {
-    return [
-      'description' => $desc,
-      'date' => date('j', $timestamp),
-      'amount' => '$' . number_format($amount),
-      'edit_link' => $link,
-    ];
   }
 
   /**
