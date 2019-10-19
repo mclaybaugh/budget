@@ -21,7 +21,22 @@ class TransactionController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    return view('transaction');
+    $begin = date('Y-m-01');
+    $end = date('Y-m-d', strtotime('+1 month', strtotime($begin)));
+    // $transactions = Transaction::where('datetime', '>=', $begin)
+    //   ->where('datetime', '<', $end)
+    //   ->orderBy('datetime')
+    //   ->get();
+
+    // 1. Get latest balance
+    // 2. Get all transactions since that balance
+    // 3. Calculate balances needed for index
+
+    // Date
+    // Amount
+    // Balance
+    // Description
+    return view('transaction')->with('data', $data);
   }
 
   /**
