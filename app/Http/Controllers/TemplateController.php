@@ -78,18 +78,11 @@ class TemplateController extends Controller {
     $template->user_id = Auth::id();
     $template->description = $data['description'];
     $template->amount = $data['amount'];
-    $template->datetime = self::formatDateTime($data['date'], $data['time']);
+    $template->datetime = $data['date'] . ' ' . $data['time'] . ':00';
     $template->category_id = $data['category_id'];
     $template->save();
 
     return redirect(route('template.index'));
-  }
-
-  /**
-   * Formats date [yyyy-mm-dd] and time [hh:mm] as [yyyy-mm-dd hh:mm:ss].
-   */
-  private static function formatDateTime($date, $time) {
-    return $date . ' ' . $time . ':00';
   }
 
   /**
@@ -138,7 +131,7 @@ class TemplateController extends Controller {
     $template->description = $data['description'];
     $template->category_id = $data['category_id'];
     $template->amount = $data['amount'];
-    $template->datetime = self::formatDateTime($data['date'], $data['time']);
+    $template->datetime = $data['date'] . ' ' . $data['time'] . ':00';
     $template->save();
 
     return redirect(route('template.index'));
