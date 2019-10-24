@@ -46,7 +46,7 @@ class TemplateController extends Controller {
       }
     }
 
-    return view('template')->with('data', $data);
+    return view('template.index')->with('data', $data);
   }
 
   /**
@@ -56,7 +56,7 @@ class TemplateController extends Controller {
    */
   public function create() {
     $cats = $this->categoryArray();
-    return view('template_create')->with('categories', $cats);
+    return view('template.create')->with('categories', $cats);
   }
 
   /**
@@ -97,7 +97,7 @@ class TemplateController extends Controller {
     $item->date = date('Y-m-d', $datetime);
     $item->time = date('H:i', $datetime);
     $cats = $this->categoryArray();
-    return view('template_edit')
+    return view('template.edit')
       ->with('item', $item)
       ->with('categories', $cats);
   }

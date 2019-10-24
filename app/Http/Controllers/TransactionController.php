@@ -36,7 +36,7 @@ class TransactionController extends Controller {
     // Amount
     // Balance
     // Description
-    return view('transaction')->with('data', $data);
+    return view('transaction.index');
   }
 
   /**
@@ -45,7 +45,7 @@ class TransactionController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    return view('transaction_create');
+    return view('transaction.create');
   }
 
   /**
@@ -94,7 +94,7 @@ class TransactionController extends Controller {
       '11' => 'November',
       '12' => 'December',
     ];
-    return view('transaction_generate')->with('years', $years);
+    return view('transaction.generate')->with('years', $years);
   }
 
   public function run(Request $request) {
@@ -124,7 +124,7 @@ class TransactionController extends Controller {
    */
   public function edit($id) {
     $item = Transaction::find($id);
-    return view('template_edit')->with('item', $item);
+    return view('template.edit')->with('item', $item);
   }
 
   /**

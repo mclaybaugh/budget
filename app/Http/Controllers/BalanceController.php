@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Balance;
 
 class BalanceController extends Controller {
+
+  /**
+   * Create a new controller instance.
+   */
+  public function __construct() {
+    $this->middleware('auth');
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -13,14 +22,15 @@ class BalanceController extends Controller {
    */
   public function index() {
     $balances = Balance::all();
-    $rows = [];
+    $records = [];
     foreach ($balances as $balance) {
-      $rows[] = [
-        'date' => $balance->date,
-        'amount' => $balance->amount,
+      $records[] = [
+        'date' => date('Y-m-d', strtotime($balance->datetime)),
+        'amount' => '$' . $balance->amount,
+        'edit_link' => route('balance.edit', $balance->id),
       ];
     }
-    return view('balance')->with('rows', $rows);
+    return view('balance.index')->with('records', $records);
   }
 
   /**
@@ -29,7 +39,7 @@ class BalanceController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    return view('balance_create');
+    return view('balance.create');
   }
 
   /**
@@ -75,7 +85,7 @@ class BalanceController extends Controller {
     $datetime = strtotime($item->datetime);
     $item->date = date('Y-m-d', $datetime);
     $item->time = date('H:i', $datetime);
-    return view('balance_edit')->with('item', $item);
+    return view('balance.edit')->with('item', $item);
   }
 
   /**
