@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transaction;
 use App\Template;
+use App\Balance;
+use App\Category;
 
 class TransactionController extends Controller {
 
@@ -16,27 +18,69 @@ class TransactionController extends Controller {
   }
 
   /**
+   * Calculates balance at a given date.
+   *
+   * Assumes that given date is after latest balance. TODO fix that?
+   */
+  private static function balanceAtTimestamp($timestamp) {
+    $latestBalance = Balance::orderby('datetime')->first();
+    $recentTransactions = Transaction::where('datetime', '>=', $latestBalance->datetime)
+      ->where('datetime', '<', date('Y-m-d H:i:s', $timestamp))
+      ->orderBy('datetime')
+      ->get();
+    $balance = $latestBalance->amount;
+    foreach ($recentTransactions as $transaction) {
+      $balance += $transaction->amount;
+    }
+    return $balance;
+  }
+
+  /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $begin = date('Y-m-01');
-    $end = date('Y-m-d', strtotime('+1 month', strtotime($begin)));
-    // $transactions = Transaction::where('datetime', '>=', $begin)
-    //   ->where('datetime', '<', $end)
-    //   ->orderBy('datetime')
-    //   ->get();
-
-    // 1. Get latest balance
-    // 2. Get all transactions since that balance
-    // 3. Calculate balances needed for index
+    $beginningOfMonth = strtotime(date('Y-m-01'));
+    $nextMonth = strtotime('+1 month', $beginningOfMonth);
+    $beginningBalance = self::balanceAtTimestamp($beginningOfMonth);
+    $day = $beginningOfMonth;
+    $balance = $beginningBalance;
+    $rows;
+    while ($day < $nextMonth) {
+      $nextDay = strtotime('+1 day', $day);
+      $dayTransactions = Transaction::where('datetime', '>=', date('Y-m-d H:i:s', $day))
+        ->where('datetime', '<', date('Y-m-d H:i:s', $nextDay))
+        ->orderBy('datetime')
+        ->get();
+      if (count($dayTransactions) < 1) {
+        $rows[] = [
+          'date' => date('j', $day),
+          'amount' => '',
+          'balance' => $balance,
+          'description' => '',
+          'edit_link' => route('transaction.create'),
+        ];
+      } else {
+        foreach ($dayTransactions as $transaction) {
+          $balance += $transaction->amount;
+          $rows[] = [
+            'date' => date('j', $transaction->datetime),
+            'amount' => '$' . number_format($transaction->amount),
+            'balance' => '$' . number_format($balance),
+            'description' => $transaction->description,
+            'edit_link' => route('transaction.edit', $transaction->id),
+          ];
+        }
+      }
+      $day = $nextDay;
+    }
 
     // Date
     // Amount
     // Balance
     // Description
-    return view('transaction.index');
+    return view('transaction.index')->with('rows', $rows);
   }
 
   /**
@@ -105,15 +149,19 @@ class TransactionController extends Controller {
     $yearMonth = $data['year'] . '-' . $data['month'];
 
     $templates = Template::all();
+    $income = Category::where('name', 'Income')->get();
     foreach ($templates as $template) {
       $transaction = new Transaction();
       $transaction->user_id = Auth::id();
       $transaction->description = $template->description;
-      $transaction->amount = $template->amount;
+      $transaction->amount = $template->category_id === $income->id
+        ? $template->amount
+        : -$template->amount;
       $transaction->datetime = $yearMonth . date('-d H:i:s', strtotime($template->datetime));
       $transaction->category_id = $template->category_id;
       $transaction->save();
     }
+    return redirect(route('transaction.index'));
   }
 
   /**
