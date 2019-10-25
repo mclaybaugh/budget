@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-Template |
+Template
 @endsection
 
 @section('content')
@@ -17,9 +17,9 @@ Template |
   @endforeach
 </div>
 
-<div class="center mw5 ba b--primary primary bg-transparent f6">
-  <a class="link dim db primary tc b ph3 pv2"
-  href="{{ route('template.create') }}">Add Template Transaction</a>
-</div>
-
+@component('components.ghost_link', [
+  'route' => 'template.create',
+  'text' => 'Add Template Transaction',
+])
+@endcomponent
 @endsection

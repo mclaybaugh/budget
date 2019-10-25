@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle')
-Balance Create |
+Balance Create
 @endsection
 @section('content')
 <form method="POST" action="{{ route('balance.store') }}" class="measure center pt4">

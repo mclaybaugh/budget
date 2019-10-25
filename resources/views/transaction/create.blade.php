@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle')
-Transactions Create |
+Transactions Create
 @endsection
 @section('content')
 Transaction Create

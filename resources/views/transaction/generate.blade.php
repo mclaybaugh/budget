@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle')
-Transaction Generate |
+Transaction Generate
 @endsection
 @section('content')
 <form method="POST" action="/transaction/run" class="measure center pt4">

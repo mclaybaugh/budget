@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle')
-Template Edit |
+Template Edit
 @endsection
 @section('content')
 <div class="measure center pt4">

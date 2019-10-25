@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('pageTitle')
-Template Create |
+Template Create
 @endsection
 @section('content')
 <form method="POST" action="{{ route('template.store') }}" class="measure center pt4">
