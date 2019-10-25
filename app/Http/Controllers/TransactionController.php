@@ -56,9 +56,9 @@ class TransactionController extends Controller {
       if (count($dayTransactions) < 1) {
         $rows[] = [
           'date' => date('j', $day),
-          'amount' => '',
+          'amount' => '-',
           'balance' => $balance,
-          'description' => '',
+          'description' => '-',
           'edit_link' => route('transaction.create'),
         ];
       } else {
@@ -76,11 +76,10 @@ class TransactionController extends Controller {
       $day = $nextDay;
     }
 
-    // Date
-    // Amount
-    // Balance
-    // Description
-    return view('transaction.index')->with('rows', $rows);
+    return view('transaction.index', [
+      'title' => date('F Y'),
+      'rows' => $rows,
+    ]);
   }
 
   /**
