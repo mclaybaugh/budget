@@ -15,7 +15,7 @@ Balance
 </div>
 
 @component('components.ghost_link', [
-  'route' => 'balance.create',
+  'route' => route('balance.create'),
   'text' => 'Add Balance',
 ])
 @endcomponent

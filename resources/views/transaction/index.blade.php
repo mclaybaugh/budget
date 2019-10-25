@@ -14,8 +14,14 @@ Transaction
 </div>
 
 @component('components.ghost_link', [
-  'route' => 'transaction.create',
+  'route' => route('transaction.create'),
   'text' => 'Add Transaction',
 ])
 @endcomponent
+@component('components.ghost_link', [
+  'route' => '/transaction/generate',
+  'text' => 'Generate Transactions from Template',
+])
+@endcomponent
+
 @endsection

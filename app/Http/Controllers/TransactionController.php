@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Transaction;
 use App\Template;
 use App\Balance;
@@ -57,20 +58,23 @@ class TransactionController extends Controller {
         $rows[] = [
           'date' => date('j', $day),
           'amount' => '-',
-          'balance' => $balance,
+          'balance' => number_format($balance),
           'description' => '-',
           'edit_link' => route('transaction.create'),
         ];
       } else {
+        $i = 0;
         foreach ($dayTransactions as $transaction) {
           $balance += $transaction->amount;
+          $date = $i === 0 ? date('j', strtotime($transaction->datetime)) : '';
           $rows[] = [
-            'date' => date('j', $transaction->datetime),
-            'amount' => '$' . number_format($transaction->amount),
-            'balance' => '$' . number_format($balance),
+            'date' => $date,
+            'amount' => number_format($transaction->amount),
+            'balance' => number_format($balance),
             'description' => $transaction->description,
             'edit_link' => route('transaction.edit', $transaction->id),
           ];
+          $i++;
         }
       }
       $day = $nextDay;
@@ -137,7 +141,10 @@ class TransactionController extends Controller {
       '11' => 'November',
       '12' => 'December',
     ];
-    return view('transaction.generate')->with('years', $years);
+    return view('transaction.generate', [
+      'years' => $years,
+      'months' => $months,
+    ]);
   }
 
   public function run(Request $request) {
@@ -148,7 +155,7 @@ class TransactionController extends Controller {
     $yearMonth = $data['year'] . '-' . $data['month'];
 
     $templates = Template::all();
-    $income = Category::where('name', 'Income')->get();
+    $income = Category::where('name', 'Income')->first();
     foreach ($templates as $template) {
       $transaction = new Transaction();
       $transaction->user_id = Auth::id();
@@ -171,7 +178,7 @@ class TransactionController extends Controller {
    */
   public function edit($id) {
     $item = Transaction::find($id);
-    return view('template.edit')->with('item', $item);
+    return view('transaction.edit')->with('item', $item);
   }
 
   /**

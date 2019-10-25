@@ -18,7 +18,7 @@ Template
 </div>
 
 @component('components.ghost_link', [
-  'route' => 'template.create',
+  'route' => route('template.create'),
   'text' => 'Add Template Transaction',
 ])
 @endcomponent
