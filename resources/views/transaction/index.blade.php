@@ -11,17 +11,18 @@ Transaction
     ])
     @endcomponent
   @endif
+  <div class="overflow-auto pa3">
+    @component('components.ghost_link', [
+      'route' => route('transaction.create'),
+      'text' => 'Add Transaction',
+    ])
+    @endcomponent
+    @component('components.ghost_link', [
+      'route' => '/transaction/generate',
+      'text' => 'Generate Transactions from Template',
+    ])
+    @endcomponent
+  </div>
 </div>
-
-@component('components.ghost_link', [
-  'route' => route('transaction.create'),
-  'text' => 'Add Transaction',
-])
-@endcomponent
-@component('components.ghost_link', [
-  'route' => '/transaction/generate',
-  'text' => 'Generate Transactions from Template',
-])
-@endcomponent
 
 @endsection
