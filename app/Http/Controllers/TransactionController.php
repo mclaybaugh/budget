@@ -92,7 +92,10 @@ class TransactionController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    return view('transaction.create');
+    $categories = Category::getArray();
+    return view('transaction.create', [
+      'categories' => $categories,
+    ]);
   }
 
   /**
@@ -106,14 +109,15 @@ class TransactionController extends Controller {
       'description' => 'required|max:100',
       'category_id' => 'required',
       'amount' => 'required',
-      'datetime' => 'required',
+      'date' => 'required',
+      'time' => 'required',
     ]);
 
     $transaction = new Transaction();
     $transaction->user_id = Auth::id();
     $transaction->description = $data['description'];
     $transaction->amount = $data['amount'];
-    $transaction->datetime = $data['datetime'];
+    $transaction->datetime = $data['date'] . ' ' . $data['time'] . ':00';
     $transaction->category_id = $data['category_id'];
     $transaction->save();
 

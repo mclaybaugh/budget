@@ -55,7 +55,7 @@ class TemplateController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function create() {
-    $cats = $this->categoryArray();
+    $cats = Category::getArray();
     return view('template.create')->with('categories', $cats);
   }
 
@@ -96,19 +96,10 @@ class TemplateController extends Controller {
     $datetime = strtotime($item->datetime);
     $item->date = date('Y-m-d', $datetime);
     $item->time = date('H:i', $datetime);
-    $cats = $this->categoryArray();
+    $cats = Category::getArray();
     return view('template.edit')
       ->with('item', $item)
       ->with('categories', $cats);
-  }
-
-  private function categoryArray() {
-    $records = Category::all();
-    $cats = [];
-    foreach ($records as $cat) {
-      $cats[$cat->id] = $cat->name;
-    }
-    return $cats;
   }
 
   /**
