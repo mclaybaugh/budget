@@ -182,7 +182,14 @@ class TransactionController extends Controller {
    */
   public function edit($id) {
     $item = Transaction::find($id);
-    return view('transaction.edit')->with('item', $item);
+    $datetime = strtotime($item->datetime);
+    $item->date = date('Y-m-d', $datetime);
+    $item->time = date('H:i', $datetime);
+    $categories = Category::getArray();
+    return view('transaction.edit', [
+      'item' => $item,
+      'categories' => $categories,
+    ]);
   }
 
   /**
@@ -197,13 +204,14 @@ class TransactionController extends Controller {
       'description' => 'required|max:100',
       'category_id' => 'required',
       'amount' => 'required',
-      'datetime' => 'required',
+      'date' => 'required',
+      'time' => 'required',
     ]);
 
     $transaction = Transaction::find($id);
     $transaction->description = $data['description'];
     $transaction->amount = $data['amount'];
-    $transaction->datetime = $data['datetime'];
+    $transaction->datetime = $data['date'] . ' ' . $data['time'] . ':00';
     $transaction->category_id = $data['category_id'];
     $transaction->save();
 
