@@ -32,11 +32,11 @@
       </a>
       <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
       @guest
-        <a class="link dim f6 f5-l dib mr3 mr4-l" href="{{ route('login') }}">
+        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('login') }}">
           Login
         </a>
         @if (Route::has('register'))
-          <a class="link dim f6 f5-l dib mr3 mr4-l" href="{{ route('register') }}">
+          <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('register') }}">
             Register
           </a>
         @endif
@@ -51,7 +51,7 @@
           Template
         </a>
         <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('logout') }}"
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          onclick="event.preventDefault(); if (confirm('Are you sure you want to log out?')) document.getElementById('logout-form').submit();">
             Logout
         </a>
 
