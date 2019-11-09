@@ -23,10 +23,13 @@ class TransactionController extends Controller {
    *
    * Assumes that given date is after latest balance. TODO fix that?
    */
-  private static function balanceAtTimestamp($timestamp) {
-    $latestBalance = Balance::orderby('datetime')->first();
+  private static function balanceAtTimestamp($startTime) {
+    $latestBalance = Balance::orderby('datetime', 'DESC')->first();
+    if (strtotime($latestBalance->datetime) > $startTime) {
+      return FALSE;
+    }
     $recentTransactions = Transaction::where('datetime', '>=', $latestBalance->datetime)
-      ->where('datetime', '<', date('Y-m-d H:i:s', $timestamp))
+      ->where('datetime', '<', date('Y-m-d H:i:s', $startTime))
       ->orderBy('datetime')
       ->get();
     $balance = $latestBalance->amount;
@@ -36,18 +39,13 @@ class TransactionController extends Controller {
     return $balance;
   }
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index() {
-    $beginningOfMonth = strtotime(date('Y-m-01'));
-    $nextMonth = strtotime('+1 month', $beginningOfMonth);
-    $beginningBalance = self::balanceAtTimestamp($beginningOfMonth);
+  public function getMonthBudgetRows($beginningOfMonth, $beginningBalance) {
     $day = $beginningOfMonth;
-    $balance = $beginningBalance;
-    $rows;
+    $nextMonth = strtotime('+1 month', $beginningOfMonth);
+    if ($beginningBalance !== FALSE) {
+      $balance = $beginningBalance;
+    }
+    $rows = [];
     while ($day < $nextMonth) {
       $nextDay = strtotime('+1 day', $day);
       $dayTransactions = Transaction::where('datetime', '>=', date('Y-m-d H:i:s', $day))
@@ -55,22 +53,32 @@ class TransactionController extends Controller {
         ->orderBy('datetime')
         ->get();
       if (count($dayTransactions) < 1) {
+        if ($beginningBalance !== FALSE) {
+          $balanceValue = number_format($balance);
+        } else {
+          $balanceValue = '#';
+        }
         $rows[] = [
           'date' => date('j', $day),
           'amount' => '-',
-          'balance' => number_format($balance),
+          'balance' => $balanceValue,
           'description' => '-',
           'edit_link' => route('transaction.create'),
         ];
       } else {
         $i = 0;
         foreach ($dayTransactions as $transaction) {
-          $balance += $transaction->amount;
+          if ($beginningBalance !== FALSE) {
+            $balance += $transaction->amount;
+            $balanceValue = number_format($balance);
+          } else {
+            $balanceValue = '#';
+          }
           $date = $i === 0 ? date('j', strtotime($transaction->datetime)) : '';
           $rows[] = [
             'date' => $date,
             'amount' => number_format($transaction->amount),
-            'balance' => number_format($balance),
+            'balance' => $balanceValue,
             'description' => $transaction->description,
             'edit_link' => route('transaction.edit', $transaction->id),
           ];
@@ -79,10 +87,43 @@ class TransactionController extends Controller {
       }
       $day = $nextDay;
     }
+    return $rows;
+  }
 
-    return view('transaction.index', [
-      'title' => date('F Y'),
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index() {
+    return redirect('/transaction/month/' . date('Y/m'));
+  }
+
+  public function month($year, $month) {
+    $beginningOfMonth = strtotime($year . '-' . $month . '-01');
+    $nextMonth = strtotime('+1 month', $beginningOfMonth);
+    $prevMonth = strtotime('-1 month', $beginningOfMonth);
+    $beginningBalance = self::balanceAtTimestamp($beginningOfMonth);
+    $message = '';
+    if ($beginningBalance == false) {
+      $message = 'Please set a beginning balance before this month.';
+    }
+    $rows = $this->getMonthBudgetRows($beginningOfMonth, $beginningBalance);
+
+    // Nav links.
+    $prevHref = '/transaction/month/' . date('Y/m', $prevMonth);
+    $prevText = date('< M y', $prevMonth);
+    $nextHref = '/transaction/month/' . date('Y/m', $nextMonth);
+    $nextText = date('M y >', $nextMonth);
+
+    return view('transaction.month', [
+      'title' => date('F Y', $beginningOfMonth),
       'rows' => $rows,
+      'prevHref' => $prevHref,
+      'prevText' => $prevText,
+      'nextHref' => $nextHref,
+      'nextText' => $nextText,
+      'message' => $message,
     ]);
   }
 
