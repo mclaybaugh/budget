@@ -3,9 +3,10 @@
 Balance Create
 @endsection
 @section('content')
-<form method="POST" action="{{ route('balance.store') }}" class="measure center pt4">
-  @csrf
-
+@component('components.form', [
+  'method' => 'POST',
+  'route' => route('balance.store'),
+])
   <!-- amount numeric 8:2 -->
   @component('components.input', [
     'short' => 'amount',
@@ -37,5 +38,5 @@ Balance Create
   ])
   @endcomponent
 
-</form>
+@endcomponent
 @endsection

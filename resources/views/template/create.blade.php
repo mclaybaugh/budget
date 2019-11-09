@@ -3,8 +3,10 @@
 Template Create
 @endsection
 @section('content')
-<form method="POST" action="{{ route('template.store') }}" class="measure center pt4">
-  @csrf
+@component('components.form', [
+  'method' => 'POST',
+  'route' => route('template.store'),
+])
   <!-- description text max 100 -->
   @component('components.input', [
     'short' => 'description',
@@ -51,5 +53,5 @@ Template Create
   ])
   @endcomponent
 
-</form>
+@endcomponent
 @endsection

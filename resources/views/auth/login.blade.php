@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="measure center pt4" method="POST" action="{{ route('login') }}">
-  @csrf
+@component('components.form', [
+  'method' => 'POST',
+  'route' => route('login'),
+])
   <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
     <legend class="f4 fw6 ph0 mh0 white">Login</legend>
     <div class="mt3">
@@ -35,5 +37,5 @@
       <a href="{{ route('password.request') }}" class="f6 link dim black db silver">Forgot your password?</a>
     </div>
   @endif
-</form>
+@endcomponent
 @endsection

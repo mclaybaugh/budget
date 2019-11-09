@@ -3,8 +3,10 @@
 Transaction Create
 @endsection
 @section('content')
-<form method="POST" action="{{ route('transaction.store') }}" class="measure center pt4">
-  @csrf
+@component('components.form', [
+  'method' => 'POST',
+  'route' => route('transaction.store'),
+])
   <!-- description text max 100 -->
   @component('components.input', [
     'short' => 'description',
@@ -50,5 +52,5 @@ Transaction Create
     'colors' => 'ba b--primary primary',
   ])
   @endcomponent
-
+@endcomponent
 @endsection
