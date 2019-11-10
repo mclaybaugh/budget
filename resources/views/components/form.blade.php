@@ -4,7 +4,7 @@
   - route
   - method
 --}}
-<form class="measure center pt4" method="{{ $method }}" action="{{ $route }}">
+<form class="measure center" method="{{ $method }}" action="{{ $route }}">
   @csrf
   {{ $slot }}
 </form>
