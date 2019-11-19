@@ -24,4 +24,4 @@ Route::get('/transaction/month/{year}/{month}', 'TransactionController@month')
   ->where(['year' => '[0-9]{4}', 'month' => '[0-9]{2}']);
 Route::resource('transaction', 'TransactionController')->except(['show']);
 
-Auth::routes();
+Auth::routes(['verify' => TRUE]);

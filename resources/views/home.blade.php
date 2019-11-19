@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('pageTitle')
+Home
+@endsection
 @section('content')
 <article class="center mw5 mw6-ns br3 hidden ba b--gray mv4">
   <h2 class="f4 bg-near-black br3 br--top black-60 mv0 pv2 ph3 silver">Title of card</h1>
