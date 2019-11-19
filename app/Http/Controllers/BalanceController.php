@@ -21,7 +21,9 @@ class BalanceController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $balances = Balance::all();
+    $balances = Balance::where('user_id', Auth::id())
+      ->get();
+
     $records = [];
     foreach ($balances as $balance) {
       $records[] = [

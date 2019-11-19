@@ -24,11 +24,16 @@ class TransactionController extends Controller {
    * Assumes that given date is after latest balance. TODO fix that?
    */
   private static function balanceAtTimestamp($startTime) {
-    $latestBalance = Balance::orderby('datetime', 'DESC')->first();
-    if (strtotime($latestBalance->datetime) > $startTime) {
+    $latestBalance = Balance::where('user_id', Auth::id())
+      ->orderby('datetime', 'DESC')
+      ->first();
+
+    if (empty($latestBalance) || strtotime($latestBalance->datetime) > $startTime) {
       return FALSE;
     }
-    $recentTransactions = Transaction::where('datetime', '>=', $latestBalance->datetime)
+
+    $recentTransactions = Transaction::where('user_id', Auth::id())
+      ->where('datetime', '>=', $latestBalance->datetime)
       ->where('datetime', '<', date('Y-m-d H:i:s', $startTime))
       ->orderBy('datetime')
       ->get();
@@ -48,10 +53,12 @@ class TransactionController extends Controller {
     $rows = [];
     while ($day < $nextMonth) {
       $nextDay = strtotime('+1 day', $day);
-      $dayTransactions = Transaction::where('datetime', '>=', date('Y-m-d H:i:s', $day))
+      $dayTransactions = Transaction::where('user_id', Auth::id())
+        ->where('datetime', '>=', date('Y-m-d H:i:s', $day))
         ->where('datetime', '<', date('Y-m-d H:i:s', $nextDay))
         ->orderBy('datetime')
         ->get();
+
       if (count($dayTransactions) < 1) {
         if ($beginningBalance !== FALSE) {
           $balanceValue = number_format($balance);
