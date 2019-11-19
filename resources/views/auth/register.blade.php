@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('pageTitle')
+Register
+@endsection
 @section('content')
 @component('components.form', [
   'method' => 'POST',
