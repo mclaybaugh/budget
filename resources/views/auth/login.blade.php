@@ -7,14 +7,14 @@ Login
   'method' => 'POST',
   'route' => route('login'),
 ])
-  <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+  <fieldset class="ba b--transparent ph0 mh0">
     <legend class="f4 fw6 ph0 mh0 white">Login</legend>
     <div class="mt3">
       <label class="db fw6 lh-copy f6 silver" for="email">Email Address</label>
-      <input class="light-silver pa2 input-reset ba bg-transparent w-100 @error('email') is-invalid b--comp @enderror"
+      <input class="light-silver pa2 input-reset ba bg-transparent w-100 @error('email') b--comp @enderror"
       type="email" name="email"  id="email">
       @error('email')
-        <span class="invalid-feedback" role="alert">
+        <span role="alert">
           <strong>{{ $message }}</strong>
         </span>
       @enderror
