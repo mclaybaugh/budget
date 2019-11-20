@@ -14,27 +14,18 @@
   - value
 --}}
 
-<div class="mt3">
+<div class="mv3">
   <label class="db fw6 lh-copy f6 silver"
   for="{{ $short }}">{{ $display }}</label>
-  <input class="light-silver pa2 input-reset ba bg-transparent w-100
-  @error('{{ $short }}') is-invalid b--comp @enderror"
+  <input class="light-silver pa2 input-reset ba bg-transparent w-100 @error('{{ $short }}') b--comp @enderror"
   type="{{ $type }}" name="{{ $short }}" id="{{ $short }}"
-  @isset($maxlength)
-    maxlength="{{ $maxlength }}"
-  @endisset
-  @isset($max)
-    maxlength="{{ $max }}"
-  @endisset
-  @isset($placeholder)
-    placeholder="{{ $placeholder }}"
-  @endisset
-  @isset($value)
-    value="{{ $value }}"
-  @endisset
+  @isset($maxlength) maxlength="{{ $maxlength }}" @endisset
+  @isset($max) maxlength="{{ $max }}" @endisset
+  @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
+  @isset($value) value="{{ $value }}" @endisset
   />
   @error('{{ $short }}')
-    <span class="invalid-feedback white db" role="alert">
+    <span class="comp" role="alert">
       <strong>{{ $message }}</strong>
     </span>
   @enderror
