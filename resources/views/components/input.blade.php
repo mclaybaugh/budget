@@ -12,6 +12,9 @@
   - max (number)
   - placeholder
   - value
+  - required
+  - autocomplete
+  - autofocus
 --}}
 
 <div class="mv3">
@@ -23,6 +26,9 @@
   @isset($max) maxlength="{{ $max }}" @endisset
   @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
   @isset($value) value="{{ $value }}" @endisset
+  @isset($required) required @endisset
+  @isset($autocomplete) autocomplete="{{ $short }}" @endisset
+  @isset($autofocus) autofocus @endisset
   />
   @error('{{ $short }}')
     <span class="comp" role="alert">
