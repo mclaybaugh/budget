@@ -1,4 +1,4 @@
-{{-- table_template.blade.php 
+{{-- table_balance.blade.php 
 
   params:
   - title

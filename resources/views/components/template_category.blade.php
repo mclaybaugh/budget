@@ -1,4 +1,4 @@
-{{-- table_template.blade.php 
+{{-- template_category.blade.php 
 
   params:
   - title
