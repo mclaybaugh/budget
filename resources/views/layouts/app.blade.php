@@ -50,8 +50,7 @@
         <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('template.index') }}">
           Template
         </a>
-        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l" href="{{ route('logout') }}"
-          onclick="event.preventDefault(); if (confirm('Are you sure you want to log out?')) document.getElementById('logout-form').submit();">
+        <a class="link light-silver dim f6 f5-l dib mr3 mr4-l js-logout" href="{{ route('logout') }}">
             Logout
         </a>
 
