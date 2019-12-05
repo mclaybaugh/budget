@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', function onLoad() {
   })
 
   document.querySelector('.js-updateToday').addEventListener('click', () => {
-
+    // prompt for current bank balance
+    // show difference with current expected balance
+    // add other transactions?
+    // confirm add this correcting transaction?
+    // done
   });
   
 });
