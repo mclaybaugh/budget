@@ -60,7 +60,7 @@
       @endif
       </div>
     </nav>
-    <main class="py-4">
+    <main class="pa3 py-4">
       @yield('content')
     </main>
   </div>
