@@ -8,6 +8,7 @@ use App\Transaction;
 use App\Template;
 use App\Balance;
 use App\Category;
+use DateTime;
 
 class TransactionController extends Controller {
 
@@ -207,7 +208,7 @@ class TransactionController extends Controller {
     ]);
     $yearMonth = $data['year'] . '-' . $data['month'];
 
-    $templates = Template::all();
+    $templates = Template::where('user_id', Auth::id())->get();
     $income = Category::where('name', 'Income')->first();
     foreach ($templates as $template) {
       $transaction = new Transaction();
@@ -216,11 +217,27 @@ class TransactionController extends Controller {
       $transaction->amount = $template->category_id === $income->id
         ? $template->amount
         : -$template->amount;
-      $transaction->datetime = $yearMonth . date('-d H:i:s', strtotime($template->datetime));
+      $templateTimestamp = self::getSafeDate(strtotime($template->datetime), $yearMonth);
+      $transaction->datetime = $yearMonth . date('-d H:i:s', $templateTimestamp);
       $transaction->category_id = $template->category_id;
       $transaction->save();
     }
     return redirect(route('transaction.index'));
+  }
+
+  /**
+   * Ensure day is in month (avoid Feb 31).
+   */
+  private static function getSafeDate($timestamp, $yearMonth) {
+    $daysInMonth = date('t', strtotime($yearMonth . '-01'));
+    $daysDiff = date('d', $timestamp) - $daysInMonth;
+    if ($daysDiff > 0) {
+      $x = new DateTime();
+      $x->setTimestamp($timestamp);
+      $x->modify('-' . $daysDiff . ' days');
+      $timestamp = $x->getTimestamp();
+    }
+    return $timestamp;
   }
 
   /**
