@@ -30,5 +30,5 @@ Transaction Generate
   ])
   @endcomponent
 
-</form>
+@endcomponent
 @endsection
