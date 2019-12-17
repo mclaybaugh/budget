@@ -10,8 +10,8 @@
 <div class="mt3">
   <label class="db fw6 lh-copy f6 silver"
   for="{{ $short }}">{{ $display }}</label>
-  <select class=""
-  name="{{ $short }}" id="{{ $short }}">
+  <select name="{{ $short }}" id="{{ $short }}"
+  @if (!isset($optional)) required="required" @endif>
     <option value="">Select ...</option>
       @foreach ($options as $val => $display)
         <option value="{{ $val }}"
