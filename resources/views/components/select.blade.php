@@ -12,7 +12,7 @@
   for="{{ $short }}">{{ $display }}</label>
   <select class=""
   name="{{ $short }}" id="{{ $short }}">
-    <option>Select ...</option>
+    <option value="">Select ...</option>
       @foreach ($options as $val => $display)
         <option value="{{ $val }}"
         @isset($value)
