@@ -3,8 +3,12 @@
 Transaction Generate
 @endsection
 @section('content')
-<form method="POST" action="/transaction/run" class="measure center pt4">
-  @csrf
+@component('components.form', [
+  'method' => 'POST',
+  'route' => '/transaction/run',
+])
+  @component('components.messages')
+  @endcomponent
 
   @component('components.select', [
     'short' => 'year',

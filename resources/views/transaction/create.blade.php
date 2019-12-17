@@ -7,6 +7,9 @@ Transaction Create
   'method' => 'POST',
   'route' => route('transaction.store'),
 ])
+  @component('components.messages')
+  @endcomponent
+
   <!-- description text max 100 -->
   @component('components.input', [
     'short' => 'description',

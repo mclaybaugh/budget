@@ -7,6 +7,9 @@ Balance Create
   'method' => 'POST',
   'route' => route('balance.store'),
 ])
+  @component('components.messages')
+  @endcomponent
+  
   <!-- amount numeric 8:2 -->
   @component('components.input', [
     'short' => 'amount',

@@ -8,6 +8,9 @@ Balance Edit
   'route' => route('balance.update', $item->id),
 ])
   @method('PATCH')
+  @component('components.messages')
+  @endcomponent
+
   <!-- amount numeric 8:2 -->
   @component('components.input', [
     'short' => 'amount',

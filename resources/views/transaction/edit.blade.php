@@ -8,6 +8,9 @@ Transaction Edit
   'route' => route('transaction.update', $item->id),
 ])
   @method('PATCH')
+  @component('components.messages')
+  @endcomponent
+
   <!-- description text max 100 -->
   @component('components.input', [
     'short' => 'description',

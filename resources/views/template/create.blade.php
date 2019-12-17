@@ -7,6 +7,9 @@ Template Create
   'method' => 'POST',
   'route' => route('template.store'),
 ])
+  @component('components.messages')
+  @endcomponent
+
   <!-- description text max 100 -->
   @component('components.input', [
     'short' => 'description',
