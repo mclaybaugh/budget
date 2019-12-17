@@ -34,6 +34,7 @@ Transaction Edit
     'display' => 'Amount',
     'type' => 'number',
     'max' => '100000000',
+    'step' => '0.01',
     'value' => $item->amount,
   ])
   @endcomponent

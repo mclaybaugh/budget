@@ -24,6 +24,7 @@
   type="{{ $type }}" name="{{ $short }}" id="{{ $short }}"
   @isset($maxlength) maxlength="{{ $maxlength }}" @endisset
   @isset($max) maxlength="{{ $max }}" @endisset
+  @isset($step) step="{{ $step }}" @endisset
   @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
   @isset($value) value="{{ $value }}" @endisset
   @if (!isset($optional)) required="required" @endif

@@ -62,7 +62,7 @@ class TransactionController extends Controller {
 
       if (count($dayTransactions) < 1) {
         if ($beginningBalance !== FALSE) {
-          $balanceValue = number_format($balance);
+          $balanceValue = number_format($balance, 2);
         } else {
           $balanceValue = '#';
         }
@@ -78,14 +78,14 @@ class TransactionController extends Controller {
         foreach ($dayTransactions as $transaction) {
           if ($beginningBalance !== FALSE) {
             $balance += $transaction->amount;
-            $balanceValue = number_format($balance);
+            $balanceValue = number_format($balance, 2);
           } else {
             $balanceValue = '#';
           }
           $date = $i === 0 ? date('j', strtotime($transaction->datetime)) : '';
           $rows[] = [
             'date' => $date,
-            'amount' => number_format($transaction->amount),
+            'amount' => number_format($transaction->amount, 2),
             'balance' => $balanceValue,
             'description' => $transaction->description,
             'edit_link' => route('transaction.edit', $transaction->id),

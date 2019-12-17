@@ -29,7 +29,7 @@ class BalanceController extends Controller {
     foreach ($balances as $balance) {
       $records[] = [
         'date' => date('Y-m-d', strtotime($balance->datetime)),
-        'amount' => '$' . number_format($balance->amount),
+        'amount' => '$' . number_format($balance->amount, 2),
         'edit_link' => route('balance.edit', $balance->id),
       ];
     }

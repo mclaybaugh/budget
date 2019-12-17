@@ -16,6 +16,7 @@ Balance Create
     'display' => 'Amount',
     'type' => 'number',
     'max' => '100000000',
+    'step' => '0.01',
   ])
   @endcomponent
 

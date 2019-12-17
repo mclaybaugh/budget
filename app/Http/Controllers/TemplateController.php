@@ -40,7 +40,7 @@ class TemplateController extends Controller {
         $row = [
           'description' => $record->description,
           'date' => date('j', $timestamp),
-          'amount' => '$' . number_format($record->amount),
+          'amount' => '$' . number_format($record->amount, 2),
           'edit_link' => route('template.edit', $record->id),
         ];
         $data[$cat][] = $row;
