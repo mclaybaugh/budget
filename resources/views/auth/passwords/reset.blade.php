@@ -22,7 +22,6 @@ Password Reset
       'display' => 'Email Address',
       'type' => 'email',
       'value' => $email ?? old('email'),
-      'required' => TRUE,
       'autocomplete' => TRUE,
       'autofocus' => TRUE,
     ])
@@ -32,7 +31,6 @@ Password Reset
       'short' => 'password',
       'display' => 'Password',
       'type' => 'password',
-      'required' => TRUE,
       'autocomplete' => TRUE,
     ])
     @endcomponent
@@ -41,7 +39,6 @@ Password Reset
       'short' => 'password_confirmation',
       'display' => 'Confirm Password',
       'type' => 'password',
-      'required' => TRUE,
       'autocomplete' => TRUE,
     ])
     @endcomponent

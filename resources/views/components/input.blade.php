@@ -26,7 +26,7 @@
   @isset($max) maxlength="{{ $max }}" @endisset
   @isset($placeholder) placeholder="{{ $placeholder }}" @endisset
   @isset($value) value="{{ $value }}" @endisset
-  @isset($required) required @endisset
+  @if (!isset($optional)) required="required" @endif
   @isset($autocomplete) autocomplete="{{ $short }}" @endisset
   @isset($autofocus) autofocus @endisset
   />

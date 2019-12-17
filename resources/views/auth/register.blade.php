@@ -16,7 +16,6 @@ Register
       'display' => 'Name',
       'type' => 'text',
       'value' => old('name'),
-      'required' => TRUE,
       'autocomplete' => TRUE,
       'autofocus' => TRUE,
     ])
@@ -27,7 +26,6 @@ Register
       'display' => 'Email Address',
       'type' => 'email',
       'value' => old('email'),
-      'required' => TRUE,
       'autocomplete' => TRUE,
     ])
     @endcomponent
@@ -36,7 +34,6 @@ Register
       'short' => 'password',
       'display' => 'Password',
       'type' => 'password',
-      'required' => TRUE,
       'autocomplete' => TRUE,
     ])
     @endcomponent
@@ -45,7 +42,6 @@ Register
       'short' => 'password_confirmation',
       'display' => 'Confirm Password',
       'type' => 'password',
-      'required' => TRUE,
       'autocomplete' => TRUE,
     ])
     @endcomponent

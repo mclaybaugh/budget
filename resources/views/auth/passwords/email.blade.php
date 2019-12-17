@@ -20,7 +20,6 @@ Forgot Password
       'display' => 'Email Address',
       'type' => 'email',
       'value' => old('email'),
-      'required' => TRUE,
       'autocomplete' => TRUE,
       'autofocus' => TRUE,
     ])
