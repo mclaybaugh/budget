@@ -5,7 +5,7 @@ Template
 @endsection
 
 @section('content')
-<div class="flex-l justify-center">
+<div class="flex-l justify-center flex-wrap">
   @foreach ($data as $cat => $records)
     @if (count($records) > 0)
       @component('components.table_template', [
