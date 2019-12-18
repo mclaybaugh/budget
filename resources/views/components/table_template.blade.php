@@ -6,7 +6,7 @@
 --}}
 <div class="overflow-auto pa3">
   <table class="f6 w-100 depth-1 collapse text-1">
-  <caption>{{ $title }}</caption>
+  <caption class="f4 lh-copy">{{ $title }}</caption>
     <colgroup>
       <col span="1" style="width: 50%">
       <col span="1" style="width: 25%">
