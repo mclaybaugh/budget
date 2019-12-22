@@ -17,7 +17,9 @@
     </thead>
     <tbody>
       @foreach($rows as $row)
-        <tr @if ($loop->even) class="depth-2" @endif>
+        <tr @if ($row['is_today']) class="bg-primary900"
+          @elseif ($loop->even) class="depth-2"
+          @endif>
           <td class="ph3 pv1">{{ $row['date'] }}</td>
           <td class="text-1 ph3 pv1 tr">{{ $row['amount'] }}</td>
           <td class="text-1 ph3 pv1 tr">{{ $row['balance'] }}</td>
