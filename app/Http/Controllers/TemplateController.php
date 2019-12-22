@@ -33,9 +33,15 @@ class TemplateController extends Controller {
     }
 
     // Process data for view.
+    $totals = [
+      'Income' => 0,
+      'Expenses' => 0,
+    ];
     foreach ($queries as $cat => $results) {
       $data[$cat] = [];
+      $total = 0;
       foreach ($results as $record) {
+        $total += $record->amount;
         $timestamp = strtotime($record->datetime);
         $row = [
           'description' => $record->description,
@@ -45,7 +51,36 @@ class TemplateController extends Controller {
         ];
         $data[$cat][] = $row;
       }
+      // Add total
+      $data[$cat][] = [
+        'description' => 'Total',
+        'date' => '',
+        'amount' => '$' . number_format($total, 2),
+        'edit_link' => '',
+      ];
+      if ($cat === 'Income') {
+        $totals['Income'] = $total;
+      } else {
+        $totals['Expenses'] += $total;
+      }
     }
+    $data['Summary'] = [];
+    foreach ($totals as $section => $value) {
+      $row = [
+        'description' => $section,
+        'date' => '',
+        'amount' => '$' . number_format($value, 2),
+        'edit_link' => '',
+      ];
+      $data['Summary'][] = $row;
+    }
+    $netIncome = $totals['Income'] - $totals['Expenses'];
+    $data['Summary'][] = [
+      'description' => 'Net Income',
+      'date' => '',
+      'amount' => '$' . number_format($netIncome, 2),
+      'edit_link' => '',
+    ];
 
     return view('template.index')->with('data', $data);
   }
