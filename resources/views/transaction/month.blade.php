@@ -6,7 +6,7 @@
 @if (!empty($message))
   <p>{{ $message }}<p>
 @endif
-<div class="flex-l justify-center">
+<div class="view-transactionMonth flex-l justify-center">
 
   <div class="overflow-auto pa3">
     @component('components.ghost_link', [
