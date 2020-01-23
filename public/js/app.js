@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function onLoad() {
+document.addEventListener('DOMContentLoaded', function () {
 
   var logout = document.querySelector('.js-logout');
   if (logout) {
@@ -20,5 +20,6 @@ document.addEventListener('DOMContentLoaded', function onLoad() {
       // done
     });
   }
-  
+
+
 });

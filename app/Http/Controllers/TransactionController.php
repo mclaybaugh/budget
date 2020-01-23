@@ -53,10 +53,8 @@ class TransactionController extends Controller {
       $balance = $beginningBalance;
     }
     $rows = [];
-    $today = date('Y-m-d');
     while ($day < $nextMonth) {
       $nextDay = strtotime('+1 day', $day);
-      $dayDate = date('Y-m-d', $day);
       $dayTransactions = Transaction::where('user_id', Auth::id())
         ->where('datetime', '>=', date('Y-m-d H:i:s', $day))
         ->where('datetime', '<', date('Y-m-d H:i:s', $nextDay))
@@ -64,48 +62,30 @@ class TransactionController extends Controller {
         ->get();
 
       if (count($dayTransactions) < 1) {
-        if ($beginningBalance !== FALSE) {
-          $balanceValue = number_format($balance, 2);
-        } else {
-          $balanceValue = '#';
-        }
-        $isToday = FALSE;
-        if ($today === $dayDate) {
-          $isToday = TRUE;
-        }
+        $balanceValue = $beginningBalance !== FALSE
+          ? number_format($balance, 2)
+          : '#';
         $rows[] = [
-          'date' => date('j', $day),
+          'date' => date('Y-m-d', $day),
           'amount' => '-',
           'balance' => $balanceValue,
           'description' => '-',
           'edit_link' => route('transaction.create'),
-          'is_today' => $isToday,
         ];
       } else {
         $i = 0;
         foreach ($dayTransactions as $transaction) {
-          if ($beginningBalance !== FALSE) {
-            $balance += $transaction->amount;
-            $balanceValue = number_format($balance, 2);
-          } else {
-            $balanceValue = '#';
-          }
-          $isToday = FALSE;
-          if ($i === 0) {
-            $date = date('j', $day);
-            if ($today === $dayDate) {
-              $isToday = TRUE;
-            }
-          } else {
-            $date = '';
-          }
+          $balance += $transaction->amount;
+          $balanceValue = $beginningBalance !== FALSE
+            ? number_format($balance, 2)
+            : '#';
+          $date = $i === 0 ? date('Y-m-d', $day) : '';
           $rows[] = [
             'date' => $date,
             'amount' => number_format($transaction->amount, 2),
             'balance' => $balanceValue,
             'description' => $transaction->description,
             'edit_link' => route('transaction.edit', $transaction->id),
-            'is_today' => $isToday,
           ];
           $i++;
         }
