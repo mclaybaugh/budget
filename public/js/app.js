@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let day of days) {
       let date = day.innerText;
       if (date === today) {
+        day.parentElement.classList.remove('depth-2');
         day.parentElement.classList.add('bg-primary900');
         break;
       }
