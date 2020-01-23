@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  var logout = document.querySelector('.js-logout');
+  const logout = document.querySelector('.js-logout');
   if (logout) {
     logout.addEventListener('click', function () {
       event.preventDefault();
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  var updateToday = document.querySelector('.js-updateToday');
+  const updateToday = document.querySelector('.js-updateToday');
   if (updateToday) {
     updateToday.addEventListener('click', function () {
       // prompt for current bank balance
@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  var isTransactionView = document.querySelector('.view-transactionMonth');
+  const isTransactionView = document.querySelector('.view-transactionMonth');
   if (isTransactionView) {
-    var d = new Date();
-    var today = d.getFullYear() + '-' + ("0"+(d.getMonth()+1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
-    var days = document.querySelectorAll('table tbody td:first-of-type');
-    for (var day of days) {
-      var date = day.innerText;
+    let d = new Date();
+    const today = d.getFullYear() + '-' + ("0"+(d.getMonth()+1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+    let days = document.querySelectorAll('table tbody td:first-of-type');
+    for (let day of days) {
+      let date = day.innerText;
       if (date === today) {
         day.parentElement.classList.add('bg-primary900');
         break;
