@@ -30,6 +30,11 @@
   @endif
 
   <div class="overflow-auto pa3">
+    @component('components.ghost_btn', [
+      'text' => 'Update Today',
+      'extraClasses' => 'js-updateToday',
+    ])
+    @endcomponent
     @component('components.ghost_link', [
       'route' => route('transaction.create'),
       'text' => 'Add Transaction',

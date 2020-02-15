@@ -19,10 +19,10 @@
       @foreach($rows as $row)
         <tr @if ($loop->even) class="depth-2"
           @endif>
-          <td class="ph3 pv1">{{ $row['date'] }}</td>
-          <td class="text-1 ph3 pv1 tr">{{ $row['amount'] }}</td>
-          <td class="text-1 ph3 pv1 tr">{{ $row['balance'] }}</td>
-          <td class="ph3 pv1">
+          <td class="transactionDate ph3 pv1">{{ $row['date'] }}</td>
+          <td class="transactionAmount text-1 ph3 pv1 tr">{{ $row['amount'] }}</td>
+          <td class="transactionBalance text-1 ph3 pv1 tr">{{ $row['balance'] }}</td>
+          <td class="transactionDescription ph3 pv1">
             <a class="link text-1 dim" href="{{ $row['edit_link'] }}">{{ $row['description'] }}</a>
           </td>
         </tr>

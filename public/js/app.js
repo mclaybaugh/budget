@@ -13,26 +13,45 @@ document.addEventListener('DOMContentLoaded', function () {
   const updateToday = document.querySelector('.js-updateToday');
   if (updateToday) {
     updateToday.addEventListener('click', function () {
-      // prompt for current bank balance
+      // show expected, prompt for current bank balance
       // show difference with current expected balance
-      // add other transactions?
       // confirm add this correcting transaction?
       // done
+      let todaysBalance = getTodaysBalance();
+      console.log(todaysBalance);
     });
+  }
+  function getTodaysBalance() {
+    let todaysRow = getTodayLastRow();
+    return todaysRow.querySelector('.transactionBalance').innerText;
+  }
+
+  // get date as Y-m-d
+  function getDateYmd() {
+    let d = new Date();
+    return d.getFullYear() + '-' + ("0"+(d.getMonth()+1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+  }
+
+  function getTodayLastRow() {
+    let today = getDateYmd();
+    let days = document.querySelectorAll('.transactionDate');
+    let row;
+    for (let day of days) {
+      let date = day.innerText;
+      if (date === today) {
+        row = day.parentElement;
+        while (row.nextElementSibling.firstElementChild.innerText === '') {
+          row = row.nextElementSibling;
+        }
+        return row;
+      }
+    }
   }
 
   const isTransactionView = document.querySelector('.view-transactionMonth');
   if (isTransactionView) {
-    let d = new Date();
-    const today = d.getFullYear() + '-' + ("0"+(d.getMonth()+1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
-    let days = document.querySelectorAll('table tbody td:first-of-type');
-    for (let day of days) {
-      let date = day.innerText;
-      if (date === today) {
-        day.parentElement.classList.remove('depth-2');
-        day.parentElement.classList.add('bg-primary900');
-        break;
-      }
-    }
+    let todaysRow = getTodayLastRow();
+    todaysRow.classList.remove('depth-2');
+    todaysRow.classList.add('bg-primary900');
   }
 });
