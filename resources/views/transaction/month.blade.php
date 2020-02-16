@@ -30,11 +30,7 @@
   @endif
 
   <div class="overflow-auto pa3">
-    @component('components.ghost_btn', [
-      'text' => 'Update Today',
-      'extraClasses' => 'js-updateToday',
-    ])
-    @endcomponent
+    
     @component('components.ghost_link', [
       'route' => route('transaction.create'),
       'text' => 'Add Transaction',
@@ -43,6 +39,11 @@
     @component('components.ghost_link', [
       'route' => '/transaction/generate',
       'text' => 'Generate Transactions from Template',
+    ])
+    @endcomponent
+    @component('components.ghost_link', [
+      'route' => '/transaction/update-today',
+      'text' => 'Update Today',
     ])
     @endcomponent
   </div>

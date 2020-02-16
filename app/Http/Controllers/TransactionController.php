@@ -280,6 +280,13 @@ class TransactionController extends Controller {
     return redirect(route('transaction.index'));
   }
 
+  public function updateToday() {
+    $balance = self::balanceAtTimestamp(time());
+    return view('transaction.update_today', [
+      'balance' => $balance,
+    ]);
+  }
+
   /**
    * Remove the specified resource from storage.
    *
